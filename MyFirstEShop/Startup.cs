@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyFirstEShop.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MyFirstEShop
 {
@@ -34,6 +36,22 @@ namespace MyFirstEShop
             });
 
             #endregion
+
+            #region Repository
+
+            services.AddScoped<IUserRegisterRepository, UserRegister>();
+
+            #endregion
+
+            #region Authentication
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/RegisterUser/Login";
+                options.LogoutPath = "/RegisterUser/Logout";
+                options.ExpireTimeSpan = TimeSpan.FromDays(3);
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +72,7 @@ namespace MyFirstEShop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>

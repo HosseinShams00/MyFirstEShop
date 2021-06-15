@@ -1,0 +1,65 @@
+﻿@model MyFirstEShop.Models.RegisterAccountModelView
+
+@{
+    ViewData["Title"] = "ثبت نام";
+}
+
+
+
+<div class="offset-2 col-8 Box bg-White-Gradian bg-testCol shadows">
+    <h1 class="col-12">فرم ثبت نام</h1>
+    <hr class="col-11" />
+    <div class="offset-md-2 col-md-8">
+        <form class="CForm" asp-action="Signin" method="post" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" >
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control border-bottom-blue"/>
+                <span asp-validation-for="FirstName" id="test" class="text-danger"></span>
+
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control border-bottom-blue"  />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control border-bottom-blue" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control border-bottom-blue" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control border-bottom-blue" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RePassword" class="control-label"></label>
+                <input asp-for="RePassword" class="form-control border-bottom-blue" />
+                <span asp-validation-for="RePassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn BlueBtn" />
+            </div>
+
+            <div class="form-group">
+                <a asp-action="Login">ورود</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

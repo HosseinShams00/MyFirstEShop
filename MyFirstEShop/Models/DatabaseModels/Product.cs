@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyFirstEShop.Models
 {
@@ -10,7 +11,10 @@ namespace MyFirstEShop.Models
     {
         public int Id { get; set; }
         public int TeacherId { get; set; }
+
+        [MaxLength(32)]
         public string Name { get; set; }
+
         public string Description { get; set; }
         public int Price { get; set; }
        // public Stream ProductCover { get; set; }

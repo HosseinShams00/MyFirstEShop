@@ -1,24 +1,32 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace MyFirstEShop.Models
 {
     public class UserInfo
     {
         public int Id { get; set; }
 
+        [MaxLength(32)]
         public string FirstName { get; set; }
 
+        [MaxLength(32)]
         public string LastName { get; set; }
 
+        [MaxLength(32)]
         public string UserName { get; set; }
 
         public string Email { get; set; }
 
+        [MaxLength(32)]
         public string Password { get; set; }
 
+        [MaxLength(11)]
         public string PhoneNumber { get; set; }
 
         public string Address { get; set; }
 
+        [MaxLength(100)]
         public string About { get; set; }
 
         public bool IsAdmin { get; set; }

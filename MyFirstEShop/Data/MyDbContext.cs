@@ -28,26 +28,37 @@ namespace MyFirstEShop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>().HasMany(i => i.Products)
-                .WithMany(q => q.Categories);
+            #region Relations
 
-            modelBuilder.Entity<Product>().HasOne(i => i.ProductOtherInfo)
+            modelBuilder.Entity<Category>()
+                .HasMany(i => i.Products)
+               .WithMany(q => q.Categories);
+
+            //////////////////////////////////////
+            ///
+            modelBuilder.Entity<Product>()
+                .HasOne(i => i.ProductOtherInfo)
                 .WithOne(i => i.Product)
                 .HasForeignKey<ProductOtherInfo>(key => key.ProdutId);
 
-            modelBuilder.Entity<Product>().HasOne(i => i.Teacher)
+            modelBuilder.Entity<Product>()
+                .HasOne(i => i.Teacher)
                 .WithMany(i => i.Products)
                 .HasForeignKey(key => key.TeacherId);
 
+            //////////////////////////////////////
 
-
-            modelBuilder.Entity<UserInfo>().HasOne(i => i.UserSetting)
+            modelBuilder.Entity<UserInfo>()
+                .HasOne(i => i.UserSetting)
                 .WithOne(i => i.UserInfo)
                 .HasForeignKey<UserSetting>(key => key.UserId);
 
-            modelBuilder.Entity<UserInfo>().HasOne(i => i.Teacher)
+            modelBuilder.Entity<UserInfo>()
+                .HasOne(i => i.Teacher)
                 .WithOne(i => i.Info)
                 .HasForeignKey<TeacherInfo>(key => key.UserId);
+
+            #endregion
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,0 +1,44 @@
+﻿
+
+@{
+    ViewData["Title"] = "لیست خرید";
+}
+<link rel="stylesheet" href="~/css/ShopingList.css" />
+<div class="row">
+
+    <div class="offset-2 col-md-8 bg-testCol">
+        <h1 class="display-5">محصولات انتخابی شما</h1>
+        <hr>
+        <table>
+
+            <tr>
+                <th class="text-center">نام محصول</th>
+                <th class="text-center">تعداد</th>
+                <th class="text-center">قیمت</th>
+                <th class="text-center">مجموع</th>
+                <th class="text-center"></th>
+            </tr>
+            
+            @*@foreach (var item in Model.CartItem)
+            {
+                <tr>
+                    <td><span class="FirstTd">@item.item.product.Name</span></td>
+                    <td>@item.Quantity</td>
+                    <td>@item.item.Price</td>
+                    <td>@item.getTotalPrice()</td>
+                    <td><a asp-controller="ShopingList" asp-action="RemoveItem" asp-route-itemId=@item.item.id><i class="fas fa-trash-alt"></i></a></td>
+                   
+                </tr>
+            }*@
+            <tr>
+                <td><span class="FirstTd">قیمت کل</span></td>
+                <td></td>
+                <td></td>
+                <td>@*@Model.GetSumPrice()*@</td>
+                <td></td>
+
+            </tr>
+        </table>
+    </div>
+
+</div>

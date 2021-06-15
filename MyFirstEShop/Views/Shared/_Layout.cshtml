@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link href="~/lib/bootstrap-v4-rtl-master/dist/css/bootstrap-rtl.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/fontawesome-free-5.15.3-web/css/all.min.css" />
@@ -27,7 +27,29 @@
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
- 
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="bg-White-Gradian shadows fa-pull-left UserAccountBox">
+
+                            <form method="post">
+                                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F540924605235551692%2F&psig=AOvVaw0JB9nLLQjsWmEWxU93nJ6H&ust=1623863169028000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNj51f2PmvECFQAAAAAdAAAAABAJ"
+                                     style="width: 50px; height: 50px; border-radius: 50%; background-position: center; float: left;" />
+                                <a class="text-dark" asp-area="" asp-controller="RegisterUser" asp-action="Signin">
+                                    @(User.FindFirst("FirstName").Value + User.FindFirst("LastName").Value)
+                                </a>
+                                <button class="btn btn-secondary" onclick="ReSizeMenu()" style="margin:10px 0;">تنظیمات</button>
+                                <a class="btn btn-danger" asp-controller="RegisterUser" asp-action="Logout" role="button" formmethod="post" style="margin:10px 0;">خروج</a>
+                            </form>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="RegisterUser" asp-action="Signin">ثبت نام</a>
+
+                        <a class="nav-link text-dark" asp-area="" asp-controller="RegisterUser" asp-action="Login">ورود</a>
+                    }
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" onclick="ReSizeMenu()" href="#"> <i class="fas fa-list"></i></a>
@@ -38,6 +60,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">تماس با ما</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ShopingList" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
                         </li>
@@ -47,6 +70,7 @@
                 </div>
             </div>
         </nav>
+
 
     </header>
 
@@ -60,7 +84,7 @@
 
     <footer class="bg-white border-top footer text-muted">
         <div class="container">
-            &copy; 1400 - Practice2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>Hello World</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

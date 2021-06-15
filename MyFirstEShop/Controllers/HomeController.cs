@@ -22,9 +22,9 @@ namespace MyFirstEShop.Controllers
 
         public IActionResult Index()
         {
-            var pro = DbContext.Products.ToList();
+            //var pro = DbContext.Products.ToList();
 
-            return View(pro);
+            return View();
 
         }
 
