@@ -21,8 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Repositories\" />
+    <Content Update="Views\Article\Detail.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

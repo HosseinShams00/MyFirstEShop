@@ -3,41 +3,64 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyFirstEShop</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"]</title>
+
+    <link href="~/lib/bootstrap-v4-rtl-master/dist/css/bootstrap-rtl.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.3-web/css/all.min.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body class="rtl">
+    <div id="Background-SlidBar" onclick="ReSizeMenu()">
+        <div id="SlidBar">
+
+        </div>
+    </div>
+    <header class="row">
+
+        <nav class="col-12 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyFirstEShop</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">تمرین دوم - فروشگاه</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+ 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" onclick="ReSizeMenu()" href="#"> <i class="fas fa-list"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">تماس با ما</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ShopingList" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+                        </li>
+
                     </ul>
+
                 </div>
             </div>
         </nav>
+
     </header>
+
     <div class="container">
+
         <main role="main" class="pb-3">
+
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="bg-white border-top footer text-muted">
         <div class="container">
-            &copy; 1400 - MyFirstEShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 1400 - Practice2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,29 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using MyFirstEShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using MyFirstEShop.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstEShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private MyDbContext DbContext { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(MyDbContext _DbContext)
         {
-            _logger = logger;
+            DbContext = _DbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var pro = DbContext.Products.ToList();
+
+            return View(pro);
+
         }
 
-        public IActionResult Privacy()
+        public IActionResult ContactUs()
         {
             return View();
         }
@@ -34,4 +39,5 @@ namespace MyFirstEShop.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
 }

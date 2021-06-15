@@ -23,6 +23,10 @@ namespace MyFirstEShop.Models
 
         public bool IsAdmin { get; set; }
 
+        public bool IsTeacher { get; set; }
+
+        public System.DateTime? RegisterTime { get; set; }
+
         #region Navigation Property
 
         public TeacherInfo Teacher { get; set; }

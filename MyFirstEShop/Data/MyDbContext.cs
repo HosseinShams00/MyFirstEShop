@@ -11,11 +11,17 @@ namespace MyFirstEShop.Data
         #region DbSets
 
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Product> Products { get; set; }
+
         public DbSet<ProductOtherInfo> ProductOtherInfos { get; set; }
+
         public DbSet<CategoryToProduct> CategoryToProducts { get; set; }
+
         public DbSet<UserInfo> UserInfos { get; set; }
+
         public DbSet<UserSetting> UserSettings { get; set; }
+
         public DbSet<TeacherInfo> TeacherInfos { get; set; }
 
 

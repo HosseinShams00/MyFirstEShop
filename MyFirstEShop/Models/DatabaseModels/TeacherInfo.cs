@@ -15,7 +15,8 @@ namespace MyFirstEShop.Models
         #region Navigation Property
 
         public ICollection<Product> Products { get; set; }
-        
+        public UserInfo Info { get; set; }
+
         #endregion
     }
 }

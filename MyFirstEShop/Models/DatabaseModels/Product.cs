@@ -24,6 +24,8 @@ namespace MyFirstEShop.Models
         #region Navigation
         public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
         public TeacherInfo Teacher { get; set; }
+        public ProductOtherInfo ProductOtherInfo { get; set; }
+
 
         #endregion
     }
