@@ -13,7 +13,7 @@ namespace MyFirstEShop.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
-        public Stream ProductCover { get; set; }
+       // public Stream ProductCover { get; set; }
         public DateTime Create { get; set; }
         public DateTime? EndSupport { get; set; }
         public DateTime TotalTime { get; set; }
@@ -22,7 +22,7 @@ namespace MyFirstEShop.Models
 
 
         #region Navigation
-        public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
+        public ICollection<Category> Categories { get; set; }
         public TeacherInfo Teacher { get; set; }
         public ProductOtherInfo ProductOtherInfo { get; set; }
 

@@ -16,7 +16,6 @@ namespace MyFirstEShop.Data
 
         public DbSet<ProductOtherInfo> ProductOtherInfos { get; set; }
 
-        public DbSet<CategoryToProduct> CategoryToProducts { get; set; }
 
         public DbSet<UserInfo> UserInfos { get; set; }
 
@@ -29,11 +28,29 @@ namespace MyFirstEShop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>().HasMany(i => i.Products)
+                .WithMany(q => q.Categories);
 
+            modelBuilder.Entity<Product>().HasOne(i => i.ProductOtherInfo)
+                .WithOne(i => i.Product)
+                .HasForeignKey<ProductOtherInfo>(key => key.ProdutId);
+
+            modelBuilder.Entity<Product>().HasOne(i => i.Teacher)
+                .WithMany(i => i.Products)
+                .HasForeignKey(key => key.TeacherId);
+
+
+
+            modelBuilder.Entity<UserInfo>().HasOne(i => i.UserSetting)
+                .WithOne(i => i.UserInfo)
+                .HasForeignKey<UserSetting>(key => key.UserId);
+
+            modelBuilder.Entity<UserInfo>().HasOne(i => i.Teacher)
+                .WithOne(i => i.Info)
+                .HasForeignKey<TeacherInfo>(key => key.UserId);
 
             base.OnModelCreating(modelBuilder);
         }
-
 
     }
 }

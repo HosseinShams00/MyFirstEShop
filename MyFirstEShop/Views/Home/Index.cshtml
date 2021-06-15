@@ -1,4 +1,4 @@
-﻿@model HomeModelView
+﻿@model IEnumerable<Product>
 
 @{
     ViewData["Title"] = "صفحه اصلی";
@@ -20,7 +20,7 @@
 
     </div>
 
-    @foreach (var item in Model.Products)
+    @foreach (var item in Model)
     {
         <div class="col-3 HoverShadow" style="border-radius: 20px; padding: 10px;">
             <div class="bs-component">
