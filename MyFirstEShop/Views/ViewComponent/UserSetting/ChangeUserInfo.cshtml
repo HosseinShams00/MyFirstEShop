@@ -1,0 +1,46 @@
+﻿@model MyFirstEShop.Models.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "تغییر اطلاعات حساب";
+}
+
+<h1>تغییر اطلاعات حساب </h1>
+
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form class="CForm" asp-action="ChangeInfo" asp-controller="RegisterUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control border-bottom-blue" style="font-size: x-large;" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control border-bottom-blue" style="font-size: x-large;"/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <textarea asp-for="Address" class="form-control border-bottom-blue" style="resize: none; height: 20vh;"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="About" class="control-label"></label>
+                <textarea asp-for="About" class="form-control border-bottom-blue" style="resize: none; height: 20vh;"></textarea>
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ثبت" class="btn GreenBtn" />
+            </div>
+            <input asp-for="Id" type="hidden" />
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+}

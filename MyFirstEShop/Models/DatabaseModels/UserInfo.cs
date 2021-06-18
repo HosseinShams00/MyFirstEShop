@@ -13,9 +13,6 @@ namespace MyFirstEShop.Models
         [MaxLength(32)]
         public string LastName { get; set; }
 
-        [MaxLength(32)]
-        public string UserName { get; set; }
-
         public string Email { get; set; }
 
         [MaxLength(32)]

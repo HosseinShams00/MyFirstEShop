@@ -9,11 +9,11 @@ namespace MyFirstEShop.Repository
 {
     public interface IUserRegisterRepository
     {
-        UserInfo GetUserByUserName(string UserName);
-        UserInfo GetUserByEmail(string Email);
-        bool ExistUser(string Email);
+        UserInfo GetUserByEmail(string email);
+        bool ExistUser(string email);
         void AddUser(UserInfo user);
         void RemoveUser(UserInfo user);
+        void ChangeInfo(UserInfo user);
     }
 
     public class UserRegister : IUserRegisterRepository
@@ -23,6 +23,15 @@ namespace MyFirstEShop.Repository
         {
             DbContext = context;
 
+        }
+        public bool ExistUser(string Email)
+        {
+            return DbContext.UserInfos.Any(user => user.Email == Email);
+        }
+
+        public UserInfo GetUserByEmail(string Email)
+        {
+            return DbContext.UserInfos.SingleOrDefault(i => i.Email == Email.ToLower());
         }
 
         public void AddUser(UserInfo user)
@@ -37,19 +46,16 @@ namespace MyFirstEShop.Repository
             DbContext.SaveChanges();
         }
 
-        public bool ExistUser(string Email)
-        {
-            return DbContext.UserInfos.Any(user => user.Email == Email);
-        }
 
-        public UserInfo GetUserByEmail(string Email)
+        public void ChangeInfo(UserInfo user)
         {
-            return DbContext.UserInfos.SingleOrDefault(i => i.Email == Email.ToLower());
-        }
+            var us = DbContext.UserInfos.Single(i => i.Id == user.Id) ;
+            us.FirstName = user.FirstName;
+            us.LastName = user.LastName;
+            us.About = user.About;
+            us.Address = user.Address;
 
-        public UserInfo GetUserByUserName(string UserName)
-        {
-            return DbContext.UserInfos.SingleOrDefault(i => i.UserName == UserName.ToLower());
+            DbContext.SaveChanges();
         }
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using MyFirstEShop.Models.ViewModels;
+
 
 namespace MyFirstEShop.Controllers
 {
@@ -47,11 +49,10 @@ namespace MyFirstEShop.Controllers
                         LastName = registerAccount.LastName,
                         Email = registerAccount.EmailAddress,
                         Password = registerAccount.Password,
-                        UserName = registerAccount.UserName,
                         IsAdmin = false,
                         RegisterTime = DateTime.Now
                     });
-                    return Content("Success");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
@@ -79,10 +80,10 @@ namespace MyFirstEShop.Controllers
                 {
                     var claims = new List<Claim>()
                     {
-                         new Claim("Userid" , User.Id.ToString()),
+                         new Claim("UserId" , User.Id.ToString()),
                          new Claim("FirstName" , User.FirstName),
                          new Claim("LastName" , User.LastName == null ? " " : User.LastName ),
-                         new Claim("Email" , loginModel.Email.Split('@')[0]),
+                         new Claim("Email" , loginModel.Email),
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -117,6 +118,7 @@ namespace MyFirstEShop.Controllers
 
         #endregion
 
+        #region Logout
 
         [HttpPost]
         [Authorize]
@@ -124,6 +126,25 @@ namespace MyFirstEShop.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        #endregion
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ChangeInfo(UserViewModel user)
+        {
+            var UpdateUser = new UserInfo()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                About = user.About,
+                Address = user.Address
+            };
+
+            UserRegister.ChangeInfo(UpdateUser);
+            return RedirectToAction("Index", "Setting");
         }
     }
 }
