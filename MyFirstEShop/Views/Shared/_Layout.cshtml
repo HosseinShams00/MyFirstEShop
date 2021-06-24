@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/fontawesome-free-5.15.3-web/css/all.min.css" />
 </head>
+
 <body class="rtl">
     <div id="Background-SlidBar" onclick="ReSizeMenu()">
         <div id="SlidBar">
 
         </div>
     </div>
+
     <header class="row">
 
         <nav class="col-12 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -30,20 +32,36 @@
                     @if (User.Identity.IsAuthenticated)
                     {
 
-                        <div class="fa-pull-left UserAccountBox" style="border: 1px #D0D3D4 solid;">
+                        <div class="fa-pull-left UserAccountBox" style="">
 
                             <form asp-controller="RegisterUser" asp-action="Logout" method="post">
                                 <img src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
                                      style="width: 50px; height: 50px; border-radius: 50%; background-position: center; float: left;" />
-                                <a class="text-dark" asp-area="" asp-controller="RegisterUser" asp-action="Signin">
-                                    @(User.FindFirst("FirstName").Value + " " +User.FindFirst("LastName").Value)
-                                </a>
-                                <button class="btn btn-secondary" asp-controller="Setting" asp-action="Index" style="margin:10px 0;">تنظیمات</button>
 
-                                <button class="btn btn-danger" type="submit">خروج</button>
+                                <span> </span>
+
+                                <div class="btn-group">
+                                    <button dir="ltr" type="button" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;background-color:transparent;margin:5px;">
+                                        @(User.FindFirst("FirstName").Value + " " +User.FindFirst("LastName").Value)
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-controller="Setting" asp-action="Index"><i class="fas fa-cogs" style="margin-left:15px;"></i> تنظیمات</a>
+                                        @if (bool.Parse(User.FindFirst("IsTeacher").Value))
+                                        {
+                                            <a asp-action="Index" asp-controller="TeacherPanel" class="dropdown-item"><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"></i> ورود به بخش مدرسین</a>
+                                        }
+                                        <button class="dropdown-item btn-danger" type="submit"><i class="fas fa-power-off" style="margin-left:15px; color:red;"></i> خروج</button>
+
+                                    </div>
+                                </div>
 
                             </form>
+
+                            
+
                         </div>
+
+
 
                     }
                     else

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyFirstEShop.Models
 {
-    public class UserInfo
+    public class User
     {
         public int Id { get; set; }
 
@@ -34,7 +34,7 @@ namespace MyFirstEShop.Models
 
         #region Navigation Property
 
-        public TeacherInfo Teacher { get; set; }
+        public Teacher Teacher { get; set; }
         public UserSetting UserSetting { get; set; }
 
         #endregion

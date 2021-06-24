@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyFirstEShop.Models
 {
-    public class TeacherInfo
+    public class Teacher
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -15,7 +15,7 @@ namespace MyFirstEShop.Models
         #region Navigation Property
 
         public ICollection<Product> Products { get; set; }
-        public UserInfo Info { get; set; }
+        public User Info { get; set; }
 
         #endregion
     }

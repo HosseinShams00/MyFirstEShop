@@ -33,3 +33,51 @@ function SettingMenu(x)
     });
     x.classList.remove(hideClassName);
 }
+
+function AddProductMenu()
+{
+    var panel = document.getElementById("ProductMenu");
+
+    if (panel.classList.contains(hideClassName))
+    {
+        panel.classList.remove(hideClassName);
+    }
+    else
+    {
+        panel.classList.add(hideClassName);
+    }
+
+
+}
+
+function TeacherBtn(x)
+{
+    document.querySelectorAll(".SettingBtn-Ul > li.SettingBtn").forEach(q => {
+
+        if (q.classList.contains("TeacherBtnStyl")) {
+            q.classList.remove("TeacherBtnStyl");
+        }
+
+    });
+
+    x.classList.add("TeacherBtnStyl");
+}
+
+
+function ModalCO()
+{
+    var panel = document.getElementById("Remove-Product");
+
+    panel.classList.toggle(hideClassName);
+}
+
+function DeleteProductModal(productID)
+{
+    ModalCO();
+
+    var input = document.getElementById("RemoveProduct");
+
+    input.value = productID;
+    
+}
+

@@ -22,7 +22,7 @@ namespace MyFirstEShop.Controllers
         {
             UserRegister = userRegisterRepositry;
         }
-
+        
 
         #region Signin
 
@@ -43,7 +43,7 @@ namespace MyFirstEShop.Controllers
                 }
                 else
                 {
-                    UserRegister.AddUser(new UserInfo()
+                    UserRegister.AddUser(new User()
                     {
                         FirstName = registerAccount.FirstName,
                         LastName = registerAccount.LastName,
@@ -52,7 +52,7 @@ namespace MyFirstEShop.Controllers
                         IsAdmin = false,
                         RegisterTime = DateTime.Now
                     });
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login");
                 }
             }
             else
@@ -65,13 +65,13 @@ namespace MyFirstEShop.Controllers
 
         #region Login
 
-        public IActionResult Login()
+        public IActionResult Login(string url)
         {
-            return View();
+            return View(new LoginViewModel() { RedirectUrl = url });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModelView loginModel)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,10 @@ namespace MyFirstEShop.Controllers
                          new Claim("UserId" , User.Id.ToString()),
                          new Claim("FirstName" , User.FirstName),
                          new Claim("LastName" , User.LastName == null ? " " : User.LastName ),
-                         new Claim("Email" , loginModel.Email),
+                         new Claim("Email" , User.Email),
+                         new Claim("IsTeacher" , User.IsTeacher.ToString()),
+                         new Claim("IsAdmin" , User.IsAdmin.ToString()),
+
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -97,7 +100,10 @@ namespace MyFirstEShop.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, Principal, prop);
 
-                    return RedirectToAction("Index", "Home");
+                    if (loginModel.RedirectUrl != null)
+                        return LocalRedirect(loginModel.RedirectUrl);
+                    else
+                        return RedirectToAction("Index", "Home");
 
                 }
                 else
@@ -134,7 +140,7 @@ namespace MyFirstEShop.Controllers
         [HttpPost]
         public IActionResult ChangeInfo(UserViewModel user)
         {
-            var UpdateUser = new UserInfo()
+            var UpdateUser = new User()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,

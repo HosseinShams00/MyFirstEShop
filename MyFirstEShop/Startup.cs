@@ -49,7 +49,9 @@ namespace MyFirstEShop
             {
                 options.LoginPath = "/RegisterUser/Login";
                 options.LogoutPath = "/RegisterUser/Logout";
-                options.ExpireTimeSpan = TimeSpan.FromDays(3);
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
             });
             #endregion
         }

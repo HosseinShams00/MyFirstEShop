@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MyFirstEShop.Data;
+using MyFirstEShop.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstEShop.Controllers
@@ -22,9 +23,21 @@ namespace MyFirstEShop.Controllers
 
         public IActionResult Index()
         {
-            //var pro = DbContext.Products.ToList();
+            var products = DbContext.Products
+                .Include(i => i.Teacher)
+                .ThenInclude(i => i.Info)
+                .Where(i => i.Status == ProductStatus.Active)
+                .Select(i => new HomeViewModel()
+                {
+                    ProductId = i.Id,
+                    ProductName = i.Name,
+                    CoverAddress = i.ProductCoverName,
+                    Price = i.Price,
+                    TeacherName = i.Teacher.Info.FirstName + " " + i.Teacher.Info.LastName
+                })
+                .ToList();
 
-            return View();
+            return View(products);
 
         }
 

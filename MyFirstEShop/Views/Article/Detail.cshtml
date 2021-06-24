@@ -1,40 +1,48 @@
-﻿@model Product
+﻿@model ProductDetailViewModel
 
 @{
-    ViewData["Title"] = "مشخصات کالای " + Model.Name;
+    ViewData["Title"] = "مشخصات کالای " + Model.ProductName;
 }
 
 <div class="row Box bg-White shadows">
 
-    <h1 class="col-12">@Model.Name</h1>
+    <h1 class="col-12">@Model.ProductName</h1>
 
     <hr class="col-11" />
 
 
     <div class="col-7 ">
-        <img src="~/images/@(Model.Id).jpg" alt=@Model.Name title=@Model.Name style="width: 100%; height:500px; padding:2%;" />
+        <img src="~/ProductCovers/@Model.CoverAddress" alt=@Model.ProductName title=@Model.ProductName style="width: 100%; height:500px; padding:2%;" />
 
         <hr />
         <div>
-            <h1>@Model.Name</h1>
-            <p class="text-justify">@Model.Description</p>
+            <h1>@Model.ProductName</h1>
+            <p class="text-justify" style="text-wrap:avoid;">@Model.Description</p>
         </div>
 
     </div>
 
-    <div class="col-3">
+    <div class="offset-1 col-3 ">
         <h3>نمای کلی از این محصول</h3>
         <hr />
-        <p>@Model.Name</p>
-        <p><span class="text-primary">نام مدرس : </span>@(Model.Teacher.Info.FirstName + " " + Model.Teacher.Info.LastName )</p>
-        <p><span class="text-primary">تعداد دانشجویان این دوره : </span>@Model.ProductOtherInfo.NumberOfPurchases</p>
-        <p><span class="text-primary">تعداد فیلم ها : </span>@Model.ProductOtherInfo.NumberOfVideos</p>
-        <p><span class="text-primary">سطح دوره : </span>@Model.ProductOtherInfo.CourceLevel.ToString()</p>
-        <p><span class="text-primary">وضعیت دوره : </span></p>
-        <p><span class="text-primary">داشتن بروز رسانی در آینده : </span>@Model.HaveUpdate</p>
-        <p><span class="text-primary">تاریخ شروع دوره : </span>@Model.Create.ToLongDateString()</p>
-        <p><span class="text-primary">هزینه ی محصول :</span> @Model.Price</p>
-        <a class="btn btn-success text-center" style="display:block; padding:10px;vertical-align:middle;">افزودن به سبد خرید  <i class="fas fa-shopping-cart"></i></a>
+        <p>@Model.ProductName</p>
+        <p ><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"> </i><span>@Model.TeacherName</span></p>
+        <p ><i style="margin-left: 15px;" class="fas fa-user-graduate"></i> <span> @Model.NumberOfPurchases </span> دانشجو</p>
+        <p ><i style="margin-left: 15px;" class="fas fa-video"></i> <span> @Model.NumberOfVideos</span> ویدئو</p>
+        <p ><span >سطح دوره : </span>@Model.CourceLevel.ToString()</p>
+        <p ><span >تاریخ شروع دوره : </span>@Model.StartDate.ToLongDateString()</p>
+        <p ><span >هزینه ی محصول :</span> @(Model.Price.ToString() == "0" ? "رایگان" : Model.Price.ToString() + " تومان")</p>
+        <a class="btn btn-success text-center" style="display:block; padding:10px;vertical-align:middle;color:white;">افزودن به سبد خرید  <i class="fas fa-shopping-cart"></i></a>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class=" col-12 Box bg-White-Gradian" style="margin:10px 0;">
+        <h1 style="text-align:center;">باکس دانلود</h1>
+        <hr class="col-10"/>
+
     </div>
 
 </div>

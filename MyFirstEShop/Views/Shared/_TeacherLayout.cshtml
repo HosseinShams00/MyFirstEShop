@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پنل مدرسین</title>
+    <link href="~/lib/bootstrap-v4-rtl-master/dist/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.3-web/css/all.min.css" />
+</head>
+
+<body class="rtl">
+
+    <div class="user-hide bg-Modal" id="Remove-Product">
+
+        <div class="Box bg-White-Gradian ModalStyle" >
+            <h1>مدرس گرامی لطفا دقت فرماید</h1>
+            <hr />
+            <p>لطفا دقت فرماید که با تایید کردن این صفحه شما موارد زیر را قبول کرده اید</p>
+            <ul>
+                <li>
+                    با حذف این دوره وظعیت دوره ی شما به حالت تعلیق تغییر می یابد و سپس با تایید مدیر سایت به حالت غیر فعال تبدیل می شود .
+                </li>
+                <li>تمامی فیلم های قرار گرفته در این دوره پاک میشود .</li>
+                <li>شرکت کنندگان دیگری نمیتوانند وارد این دوره شوند .</li>
+                <li>این دوره دیگر در دسترس عموم نخواهد بود .</li>
+                <li>
+                    این دوره فقط در رسید ها و برای ادمین قابل نمایش خواهد بود
+                    و تا زمانی که ادمین و مسئول مربوطه تایید نکند شما نمیتواند آن را بازگردانید .
+                </li>
+
+
+            </ul>
+            <form method="post" asp-controller="TeacherPanel" asp-action="RemoveProduct">
+                <input type="submit" class="btn btn-danger" style="color:white;" value="حذف دوره" />
+                <input type="button" class="btn btn-secondary" style="color:white;" onclick="ModalCO()" value="انصراف" />
+                <input id="RemoveProduct" type="hidden" name="productId" />
+            </form>
+        </div>
+
+    </div>
+
+    <header class="row">
+
+        <nav class="col-12 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">تمرین دوم - فروشگاه</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+
+    <div>
+
+        <main role="main" class="pb-3">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12" style="text-align:center;">
+
+                        <div class="row">
+                            <div class="offset-2 col-5" style=" text-align: right; padding: 20px 0;">
+                                @await Component.InvokeAsync("TeacherInfo")
+                            </div>
+
+                            <img class="offset-1 col-2" src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
+                                 style="height: 27vh; border-radius: 50%; padding: 0; margin-top: 2%;" />
+                        </div>
+
+                        <hr class="col-9" style="margin-bottom:0;" />
+                        <nav class="col-12">
+                            <ul style="list-style: none; margin: 0; padding: 0;">
+                                <li class="TeacherBtn"><a asp-action="Dashboard" asp-controller="TeacherPanel">داشبورد</a></li>
+                                <li class="TeacherBtn"><a asp-action="AddNewProduct" asp-controller="TeacherPanel">ثبت محصول جدید</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="Group-Panel-Setting col-md-12 Box shadows bg-White-Gradian" style="border-radius: 20px;margin-right:5px;">
+
+                        @RenderBody()
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </main>
+    </div>
+
+    <footer class="bg-white border-top footer text-muted">
+        <div class="container">
+            <p>Hello World</p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

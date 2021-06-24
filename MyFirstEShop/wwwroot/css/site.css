@@ -20,6 +20,7 @@ body {
     background-color: #ECF0F1;
     font-family: 'B Nazanin';
     font-weight: bolder;
+    overflow-x: hidden;
 }
 
 
@@ -42,9 +43,9 @@ a {
 }
 
 .UserAccountBox {
-    width: 220px;
-    height: 110px;
-    border-radius: 20px;
+    /*width: 220px;
+    height: 110px;*/
+    /*border-radius: 20px;*/
     padding: 10px;
     /*transition: width ease-in 1500ms, height ease-in 1500ms;*/
 }
@@ -143,6 +144,15 @@ button.accept-policy {
     background-image: linear-gradient(to right, #F2F3F4,#FFFFFF );
 }
 
+.bg-Blue-Dark {
+    color: #F7F9F9;
+    background-color: #154360;
+}
+
+.bg-Green {
+    color: #34495E;
+    background-color: #58D68D;
+}
 
 
 
@@ -268,25 +278,128 @@ a {
 li.SettingBtn {
     border: 1px #D0D3D4 solid;
     border-radius: 25px;
-    margin: 10px;
     background-color: #E5E7E9;
+    margin: 10px;
 }
 
-    li.SettingBtn > a {
-        margin: 5px;
-        padding: 5px;
-        font-size: large;
+li.TeacherBtn {
+    margin: 1% 0;
+    padding: 0;
+    display: inline-block;
+    border: 1px black solid;
+    border-radius: 50px;
+}
+
+li.SettingBtn > a {
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: large;
+}
+
+li.TeacherBtn > a {
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: #34495E;
+    font-size: large;
+}
+
+li.SettingBtn:hover {
+    cursor: pointer;
+    background-color: #ECF0F1;
+}
+
+li.SettingBtn:focus {
+    cursor: pointer;
+    background-color: #5DADE2;
+}
+
+li.TeacherBtnStyl {
+    color: black;
+    border-top: 1px black solid;
+    background-color: #F0F3F4;
+}
+
+/*Table Style */
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+}
+
+td {
+    /*border-bottom: 3px rgb(28, 34, 51) solid;
+    border-right : 3px rgb(28, 34, 51) solid;
+    border-radius: 15px;*/
+    padding: 5px 0px 5px 15px;
+    /*color: rgba(209, 202, 202, 0.719);*/
+    width: 200px;
+    height: 50px;
+    transition: height 2s;
+}
+
+
+span.FirstTd:hover {
+    /*font-family: 'Times New Roman', Times, serif;*/
+    color: black;
+}
+
+tr {
+    text-align: center;
+}
+
+    tr:nth-child(even) {
+        /*background-color: rgb(44, 51, 70);*/
     }
 
-    li.SettingBtn:hover {
-        cursor: pointer;
+    tr:nth-child(odd) {
+        /* background-color: rgb(32, 39, 56);*/
         background-color: #ECF0F1;
     }
 
-    li.SettingBtn:active {
-        cursor: pointer;
-        background-color: #5DADE2;
+    tr:hover {
+        background-color: #D0D3D4;
+        color: black;
     }
+
+th {
+    color: rgb(93, 167, 204);
+    background-color: rgb(28, 34, 51);
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    vertical-align: top;
+    font-size: x-large;
+    text-align: center !important;
+}
+
+span.FirstTd {
+    color: rgb(192, 91, 115);
+}
+
+.bg-Modal {
+    float: left;
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0,0.5);
+}
+
+.ModalStyle {
+
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    position: sticky;
+    top: 100px;
+}
+
+
+
+/*==========================================*/
 
 
 .footer {
@@ -301,4 +414,3 @@ li.SettingBtn {
 .user-hide {
     display: none;
 }
-

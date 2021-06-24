@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "_TeacherLayout";
+}
+@model MyFirstEShop.Models.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "افزودن محصول جدید";
+}
+
+
+<h1 class=" col-12">لطفا برای افزودن محصول خود فرم زیر را پر کنید</h1>
+
+<hr class="offset-1 col-10" />
+<form class="CForm offset-2 col-8" asp-action="AddNewProduct" asp-controller="TeacherPanel" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="custom-file">
+
+        <input type="file" asp-for="ProductImage" class="custom-file-input" id="btnProductCover" accept=".jpg,.png" onchange="ShowCover()" />
+        <label asp-for="ProductImage" class="custom-file-label"></label>
+        <span asp-validation-for="ProductImage"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div style=" width: 49%;margin: 10px 0; display: inline-block; padding: 0;">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" style=" border-radius: 50px; background-color: #A3E4D7; " />
+        <span asp-validation-for="Price"></span>
+    </div>
+    <div style="width: 49%; border-radius: 50px; margin: 10px 0; display: inline-block; padding: 0; ">
+        <label asp-for="OffPercent" class="control-label"></label>
+        <input asp-for="OffPercent" class="form-control" style=" border-radius: 50px; background-color: #F9E79F; " />
+        <span asp-validation-for="OffPercent"></span>
+    </div>
+    <div class="form-group">
+
+        <select class="form-control" asp-for="CourceLevel" asp-items="Html.GetEnumSelectList<MyFirstEShop.Models.CourcesLevel>()" style=" display: inline-block; width: 49%; padding: 0px 20px; border-radius: 50px; margin: auto; background-color: #A3E4D7;">
+        </select>
+        <span asp-validation-for="CourceLevel"></span>
+
+        <select asp-for="CategoryId" class="form-control" style="text-align: center; display: inline-block; width: 49%; border-radius: 50px; background-color: #F9E79F; ">
+            @foreach (var category in Model.Categories)
+            {
+                <option value=@category.Id>
+                    @category.Name
+                </option>
+            }
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control" style="height:300px;"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="ثبت" class="btn btn-primary" />
+        <input type="button" value="انصراف" class="btn btn-danger" asp-action="Index" asp-controller="TeacherPanel" />
+    </div>
+
+</form>
+
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+}

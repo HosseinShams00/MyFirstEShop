@@ -2,7 +2,7 @@
 
 namespace MyFirstEShop.Models
 {
-    public class LoginModelView
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "ایمیل")]
@@ -18,5 +18,6 @@ namespace MyFirstEShop.Models
         [Display(Name = "مرا به خاطر بسپار")]
         public bool RememberMe { get; set; }
 
+        public string RedirectUrl { get; set; }
     }
 }

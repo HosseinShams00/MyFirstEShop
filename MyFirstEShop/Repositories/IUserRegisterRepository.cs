@@ -9,11 +9,11 @@ namespace MyFirstEShop.Repository
 {
     public interface IUserRegisterRepository
     {
-        UserInfo GetUserByEmail(string email);
+        User GetUserByEmail(string email);
         bool ExistUser(string email);
-        void AddUser(UserInfo user);
-        void RemoveUser(UserInfo user);
-        void ChangeInfo(UserInfo user);
+        void AddUser(User user);
+        void RemoveUser(User user);
+        void ChangeInfo(User user);
     }
 
     public class UserRegister : IUserRegisterRepository
@@ -29,25 +29,25 @@ namespace MyFirstEShop.Repository
             return DbContext.UserInfos.Any(user => user.Email == Email);
         }
 
-        public UserInfo GetUserByEmail(string Email)
+        public User GetUserByEmail(string Email)
         {
             return DbContext.UserInfos.SingleOrDefault(i => i.Email == Email.ToLower());
         }
 
-        public void AddUser(UserInfo user)
+        public void AddUser(User user)
         {
             DbContext.Add(user);
             DbContext.SaveChanges();
         }
 
-        public void RemoveUser(UserInfo user)
+        public void RemoveUser(User user)
         {
             DbContext.Remove(user);
             DbContext.SaveChanges();
         }
 
 
-        public void ChangeInfo(UserInfo user)
+        public void ChangeInfo(User user)
         {
             var us = DbContext.UserInfos.Single(i => i.Id == user.Id) ;
             us.FirstName = user.FirstName;

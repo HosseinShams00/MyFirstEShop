@@ -17,11 +17,11 @@ namespace MyFirstEShop.Data
         public DbSet<ProductOtherInfo> ProductOtherInfos { get; set; }
 
 
-        public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<User> UserInfos { get; set; }
 
         public DbSet<UserSetting> UserSettings { get; set; }
 
-        public DbSet<TeacherInfo> TeacherInfos { get; set; }
+        public DbSet<Teacher> TeacherInfos { get; set; }
 
 
         #endregion
@@ -48,15 +48,39 @@ namespace MyFirstEShop.Data
 
             //////////////////////////////////////
 
-            modelBuilder.Entity<UserInfo>()
+            modelBuilder.Entity<User>()
                 .HasOne(i => i.UserSetting)
                 .WithOne(i => i.UserInfo)
                 .HasForeignKey<UserSetting>(key => key.UserId);
 
-            modelBuilder.Entity<UserInfo>()
+            modelBuilder.Entity<User>()
                 .HasOne(i => i.Teacher)
                 .WithOne(i => i.Info)
-                .HasForeignKey<TeacherInfo>(key => key.UserId);
+                .HasForeignKey<Teacher>(key => key.UserId);
+
+            #endregion
+
+            #region SeedData
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 5,
+                FirstName = "Hossein",
+                LastName = "Shams Pouya",
+                Email = "admin@gmail.com",
+                Password = "1234",
+                IsTeacher = true,
+                IsAdmin = true,
+                RegisterTime = System.DateTime.Now,
+
+                
+            }) ;
+
+            modelBuilder.Entity<Teacher>().HasData(new Teacher
+            {
+                Id = 1,
+                UserId = 5,
+            });
 
             #endregion
 

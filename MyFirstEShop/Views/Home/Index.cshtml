@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<HomeViewModel>
 
 @{
     ViewData["Title"] = "صفحه اصلی";
@@ -20,22 +20,25 @@
 
     </div>
 
-    @*@foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <div class="col-3 HoverShadow" style="border-radius: 20px; padding: 10px;">
             <div class="bs-component">
                 <div class="card" style="border-radius: 20px;">
-                    <img class="card-img-top thumbnail-img" src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg" alt=@(item.Name) title=@(item.Name) />
+
+                    <img class="card-img-top thumbnail-img" src="~/ProductCovers/@item.CoverAddress" alt=@(item.ProductName) title=@(item.ProductName) />
+                    
                     <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
+                        <h5 class="card-title">@item.ProductName</h5>
                         <hr />
-                        <p class="card-text">برای دیدن توضیحات کلیک کنید </p>
-                        <a class="btn btn-outline-info shadows" asp-controller="Home" asp-action="Detail" asp-route-ProductId="@item.Id" style="color:black;">ادامه توضیحات</a>
+                        <p class="bg-Blue-Dark" style="border-radius: 50px; padding: 10px; text-align: center;">نام مدرس : @item.TeacherName</p>
+                        <p class="bg-Green" style="border-radius: 50px; padding: 10px; text-align: center; ">هزینه ی دوره : <span>@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</span></p>
+                        <a class="btn btn-outline-info shadows" asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@item.ProductName style="color:black;">ادامه توضیحات</a>
                     </div>
                 </div>
             </div>
         </div>
-    }*@
+    }
 
 
 </div>

@@ -16,6 +16,7 @@ namespace MyFirstEShop.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
+        public string ProductCoverName { get; set; }
         public int Price { get; set; }
        // public Stream ProductCover { get; set; }
         public DateTime Create { get; set; }
@@ -23,14 +24,22 @@ namespace MyFirstEShop.Models
         public DateTime TotalTime { get; set; }
         public bool HaveUpdate { get; set; }
         public int OffPercent { get; set; }
-
+        public ProductStatus Status { get; set; }
 
         #region Navigation
         public ICollection<Category> Categories { get; set; }
-        public TeacherInfo Teacher { get; set; }
+        public Teacher Teacher { get; set; }
         public ProductOtherInfo ProductOtherInfo { get; set; }
 
 
         #endregion
     }
+
+    public enum ProductStatus
+    {
+        Active,
+        Suspension,
+        Inactive
+    }
+
 }
