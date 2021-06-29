@@ -9,8 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MyFirstEShop.Repository;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using MyFirstEShop.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies; 
 
 namespace MyFirstEShop
 {
@@ -32,14 +32,19 @@ namespace MyFirstEShop
 
             services.AddDbContext<Data.MyDbContext>(options =>
             {
-                options.UseSqlServer("Data Source =.;Initial Catalog=MyShopDB;Integrated Security=true");
+                options.UseSqlServer(Configuration.GetConnectionString("MyContext"));
             });
 
             #endregion
 
             #region Repository
 
-            services.AddScoped<IUserRegisterRepository, UserRegister>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddScoped<ICartRepository, ShopManager>();
+
 
             #endregion
 
@@ -57,8 +62,9 @@ namespace MyFirstEShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,6 +75,7 @@ namespace MyFirstEShop
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -82,12 +89,7 @@ namespace MyFirstEShop
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "PostMager",
-                    pattern: "{controller=Article}/{action=Detail}/{ProductId}"
-
-                    );
+                  
             });
         }
     }

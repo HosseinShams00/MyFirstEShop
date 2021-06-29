@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using MyFirstEShop.Models;
+using MyFirstEShop.Models.DatabaseModels;
 
 namespace MyFirstEShop.Data
 {
@@ -17,12 +17,13 @@ namespace MyFirstEShop.Data
         public DbSet<ProductOtherInfo> ProductOtherInfos { get; set; }
 
 
-        public DbSet<User> UserInfos { get; set; }
+        public DbSet<User> User { get; set; }
 
         public DbSet<UserSetting> UserSettings { get; set; }
 
-        public DbSet<Teacher> TeacherInfos { get; set; }
+        public DbSet<Teacher> Teacher { get; set; }
 
+        public DbSet<Cart> Cart { get; set; }
 
         #endregion
 
@@ -31,32 +32,72 @@ namespace MyFirstEShop.Data
             #region Relations
 
             modelBuilder.Entity<Category>()
-                .HasMany(i => i.Products)
-               .WithMany(q => q.Categories);
-
-            //////////////////////////////////////
-            ///
-            modelBuilder.Entity<Product>()
-                .HasOne(i => i.ProductOtherInfo)
-                .WithOne(i => i.Product)
-                .HasForeignKey<ProductOtherInfo>(key => key.ProdutId);
+                .HasMany(Q => Q.Products)
+                .WithMany(Q => Q.Categories);
 
             modelBuilder.Entity<Product>()
-                .HasOne(i => i.Teacher)
-                .WithMany(i => i.Products)
-                .HasForeignKey(key => key.TeacherId);
+                .HasOne(Q => Q.ProductOtherInfo)
+                .WithOne(Q => Q.Product)
+                .HasForeignKey<ProductOtherInfo>(Q => Q.ProdutId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            //////////////////////////////////////
+            modelBuilder.Entity<Product>()
+                .HasOne(Q => Q.Teacher)
+                .WithMany(Q => Q.Products)
+                .HasForeignKey(Q => Q.TeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ProductOtherInfo>()
+                .HasOne(Q => Q.Product)
+                .WithOne(Q => Q.ProductOtherInfo)
+                .HasForeignKey<ProductOtherInfo>(Q => Q.ProdutId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
-                .HasOne(i => i.UserSetting)
-                .WithOne(i => i.UserInfo)
-                .HasForeignKey<UserSetting>(key => key.UserId);
+                .HasOne(Q => Q.Teacher)
+                .WithOne(Q => Q.Info)
+                .HasForeignKey<Teacher>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<User>()
-                .HasOne(i => i.Teacher)
-                .WithOne(i => i.Info)
-                .HasForeignKey<Teacher>(key => key.UserId);
+                .HasOne(Q => Q.UserSetting)
+                .WithOne(Q => Q.UserInfo)
+                .HasForeignKey<UserSetting>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasMany(Q => Q.Carts)
+                .WithOne(Q => Q.User)
+                .HasForeignKey(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserSetting>()
+                .HasOne(Q => Q.UserInfo)
+                .WithOne(Q => Q.UserSetting)
+                .HasForeignKey<UserSetting>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Teacher>()
+                .HasOne(Q => Q.Info)
+                .WithOne(Q => Q.Teacher)
+                .HasForeignKey<Teacher>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Teacher>()
+                .HasMany(Q => Q.Products)
+                .WithOne(Q => Q.Teacher)
+                .HasForeignKey(Q => Q.TeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Cart>()
+                .HasOne(Q => Q.User)
+                .WithMany(Q => Q.Carts)
+                .HasForeignKey(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
 
             #endregion
 
@@ -73,8 +114,8 @@ namespace MyFirstEShop.Data
                 IsAdmin = true,
                 RegisterTime = System.DateTime.Now,
 
-                
-            }) ;
+
+            });
 
             modelBuilder.Entity<Teacher>().HasData(new Teacher
             {

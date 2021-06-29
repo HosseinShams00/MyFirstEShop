@@ -2,10 +2,10 @@
 
 <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-12 col-md-5 col-lg-4">
         <div class="Box bg-White shadows" style="text-align:center;">
             <img src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
-                 style="width: 200px; height: 200px; border-radius: 50%; background-position: center;" />
+                 style="height: 25vh; border-radius: 50%; background-position: center;" />
             <hr />
             <nav>
                 <ul style="list-style: none; margin: 0; padding: 0;">
@@ -22,28 +22,28 @@
             </nav>
         </div>
     </div>
-    <div class="Group-Panel-Setting col-md-8 Box shadows bg-White-Gradian" style="border-radius: 20px;margin-right:10px;">
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel1">
+    <div class="Group-Panel-Setting Box shadows bg-White-Gradian col-11 col-md-6 col-lg-7 mt-4 mt-md-0 " style="border-radius: 20px;margin-right:10px;">
+        <div class="offset-lg-1 col-lg-10 col-md-12 Panel-Setting user-hide" id="panel1">
             @await Component.InvokeAsync("UserSetting_Dashboard", int.Parse(User.FindFirst("UserId").Value))
         </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel2">
+        <div class="offset-lg-1 col-lg-10 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel2">
             @await Component.InvokeAsync("ChangeUserInfo", int.Parse(User.FindFirst("UserId").Value))
         </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel3">
+        <div class="offset-lg-2 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel3">
 
         </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel4">
+        <div class="offset-lg-2 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel4">
 
         </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel5">
-
-
-        </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel6">
+        <div class="offset-lg-2 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel5">
 
 
         </div>
-        <div class="offset-2 col-md-8 Panel-Setting user-hide" id="panel7">
+        <div class="offset-lg-2 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel6">
+
+
+        </div>
+        <div class="offset-lg-2 col-md-12 mt-4 mt-md-0 Panel-Setting user-hide" id="panel7">
 
         </div>
     </div>

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace MyFirstEShop.Models
+namespace MyFirstEShop.Models.DatabaseModels
 {
     public class UserSetting
     {

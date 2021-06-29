@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_TeacherLayout";
 }
-@model MyFirstEShop.Models.ViewModels.ProductViewModel
+@model ProductViewModel
 
 @{
     ViewData["Title"] = "افزودن محصول جدید";
@@ -11,7 +11,7 @@
 <h1 class=" col-12">لطفا برای افزودن محصول خود فرم زیر را پر کنید</h1>
 
 <hr class="offset-1 col-10" />
-<form class="CForm offset-2 col-8" asp-action="AddNewProduct" asp-controller="TeacherPanel" enctype="multipart/form-data">
+<form class="CForm offset-md-2 col-md-8 col-12" asp-action="AddNewProduct" asp-controller="TeacherPanel" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="custom-file">
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
 
-        <select class="form-control" asp-for="CourceLevel" asp-items="Html.GetEnumSelectList<MyFirstEShop.Models.CourcesLevel>()" style=" display: inline-block; width: 49%; padding: 0px 20px; border-radius: 50px; margin: auto; background-color: #A3E4D7;">
+        <select class="form-control" asp-for="CourceLevel" asp-items="Html.GetEnumSelectList<CourcesLevel>()" style=" display: inline-block; width: 49%; padding: 0px 20px; border-radius: 50px; margin: auto; background-color: #A3E4D7;">
         </select>
         <span asp-validation-for="CourceLevel"></span>
 

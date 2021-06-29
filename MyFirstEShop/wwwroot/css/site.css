@@ -60,9 +60,9 @@ a {
         display: table;
     }
 
-UserAccountBox::after {
-    clear: both;
-}
+    .UserAccountBox::after {
+        clear: both;
+    }
 
 div#SlidBar {
     position: absolute;
@@ -150,8 +150,8 @@ button.accept-policy {
 }
 
 .bg-Green {
-    color: #34495E;
-    background-color: #58D68D;
+    color: #34495E !important;
+    background-color: #58D68D !important;
 }
 
 
@@ -340,6 +340,9 @@ td {
     transition: height 2s;
 }
 
+.Font-number {
+    font-size: 1.3rem;
+}
 
 span.FirstTd:hover {
     /*font-family: 'Times New Roman', Times, serif;*/
@@ -370,7 +373,7 @@ th {
     width: 200px;
     height: 50px;
     padding: 5px;
-    vertical-align: top;
+    vertical-align: middle;
     font-size: x-large;
     text-align: center !important;
 }
@@ -389,7 +392,6 @@ span.FirstTd {
 }
 
 .ModalStyle {
-
     width: 50%;
     margin: auto;
     padding: 20px;
@@ -397,7 +399,20 @@ span.FirstTd {
     top: 100px;
 }
 
-
+.DiscountPersent {
+    font-family: 'Times New Roman', Times, serif;
+    direction: ltr;
+    position: absolute;
+    top: 10px;
+    left: 18px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bolder;
+}
 
 /*==========================================*/
 

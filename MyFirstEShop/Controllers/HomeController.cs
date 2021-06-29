@@ -7,38 +7,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MyFirstEShop.Data;
-using MyFirstEShop.Models.ViewModels;
+using MyFirstEShop.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstEShop.Controllers
 {
     public class HomeController : Controller
     {
-        private MyDbContext DbContext { get; set; }
+        private readonly IProductRepository ProductRepository;
 
-        public HomeController(MyDbContext _DbContext)
+        public HomeController(IProductRepository productRepository)
         {
-            DbContext = _DbContext;
+            ProductRepository = productRepository;
         }
 
         public IActionResult Index()
         {
-            var products = DbContext.Products
-                .Include(i => i.Teacher)
-                .ThenInclude(i => i.Info)
-                .Where(i => i.Status == ProductStatus.Active)
-                .Select(i => new HomeViewModel()
-                {
-                    ProductId = i.Id,
-                    ProductName = i.Name,
-                    CoverAddress = i.ProductCoverName,
-                    Price = i.Price,
-                    TeacherName = i.Teacher.Info.FirstName + " " + i.Teacher.Info.LastName
-                })
-                .ToList();
-
+            var products = ProductRepository.GetProducts();
             return View(products);
-
         }
 
         public IActionResult ContactUs()

@@ -2,7 +2,7 @@
 @model Teacher
 
 
-<h3>نام : @Model.Info.FirstName</h3>
-<h3>نام خانوادگی : @Model.Info.LastName</h3>
-<h3>تعداد دوره های شما : @Model.Products.Count</h3>
-<h3>شماره تماس شما : @(Model.Info.PhoneNumber == null ? "بدون شماره تماس" : Model.Info.PhoneNumber )</h3>
+<p>نام : @Model.Info.FirstName</p>
+<p>نام خانوادگی : @Model.Info.LastName</p>
+<p>تعداد دوره های شما : @Model.Products.Count</p>
+<p>شماره تماس شما : @(Model.Info.PhoneNumber == null ? "بدون شماره تماس" : Model.Info.PhoneNumber )</p>

@@ -1,7 +1,7 @@
-﻿
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyFirstEShop.Models
+namespace MyFirstEShop.Models.DatabaseModels
 {
     public class User
     {
@@ -36,7 +36,7 @@ namespace MyFirstEShop.Models
 
         public Teacher Teacher { get; set; }
         public UserSetting UserSetting { get; set; }
-
+        public ICollection<Cart> Carts { get; set; }
         #endregion
     }
 }

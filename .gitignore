@@ -4,9 +4,5 @@ MyFirstEShop/bin/
 MyFirstEShop/wwwroot/fontawesome-free-5.15.3-web/
 MyFirstEShop/wwwroot/lib/bootstrap-v4-rtl-master/
 MyFirstEShop/Migrations/
-MyFirstEShop/wwwroot/ProductCovers/0c203c24-6e6d-4d32-82d0-7b790db7d3bb.jpg
-MyFirstEShop/wwwroot/ProductCovers/8c8cc3b9-ec71-49d7-9cc7-20908c689729.png
-MyFirstEShop/wwwroot/ProductCovers/994c9073-1857-48e1-bcf6-67d7361da8ab.jpg
-MyFirstEShop/wwwroot/ProductCovers/9e9d5481-c23f-439c-a6c9-1adc161e3554.jpg
-MyFirstEShop/wwwroot/ProductCovers/b5635fed-5f44-4b41-bf1e-435533bdc92b.pdf
-MyFirstEShop/wwwroot/ProductCovers/c6442a7e-a56d-4756-8344-b2fe06983773.png
+MyFirstEShop/wwwroot/ProductCovers/
+MyFirstEShop/Properties/PublishProfiles/

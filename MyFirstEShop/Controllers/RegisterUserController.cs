@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MyFirstEShop.Models;
-using MyFirstEShop.Repository;
+using MyFirstEShop.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using MyFirstEShop.Models.DatabaseModels;
 using MyFirstEShop.Models.ViewModels;
 
 
@@ -17,8 +17,8 @@ namespace MyFirstEShop.Controllers
 {
     public class RegisterUserController : Controller
     {
-        public IUserRegisterRepository UserRegister { get; set; }
-        public RegisterUserController(IUserRegisterRepository userRegisterRepositry)
+        public IUserRepository UserRegister { get; set; }
+        public RegisterUserController(IUserRepository userRegisterRepositry)
         {
             UserRegister = userRegisterRepositry;
         }
@@ -43,15 +43,7 @@ namespace MyFirstEShop.Controllers
                 }
                 else
                 {
-                    UserRegister.AddUser(new User()
-                    {
-                        FirstName = registerAccount.FirstName,
-                        LastName = registerAccount.LastName,
-                        Email = registerAccount.EmailAddress,
-                        Password = registerAccount.Password,
-                        IsAdmin = false,
-                        RegisterTime = DateTime.Now
-                    });
+                    UserRegister.AddUser(registerAccount);
                     return RedirectToAction("Login");
                 }
             }
@@ -75,7 +67,7 @@ namespace MyFirstEShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var User = UserRegister.GetUserByEmail(loginModel.Email.ToLower().Trim());
+                var User = UserRegister.GetUser(loginModel.Email.ToLower().Trim());
                 if (User != null && User.Password == loginModel.Password)
                 {
                     var claims = new List<Claim>()
@@ -140,16 +132,8 @@ namespace MyFirstEShop.Controllers
         [HttpPost]
         public IActionResult ChangeInfo(UserViewModel user)
         {
-            var UpdateUser = new User()
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                About = user.About,
-                Address = user.Address
-            };
 
-            UserRegister.ChangeInfo(UpdateUser);
+            UserRegister.ChangeInfo(user);
             return RedirectToAction("Index", "Setting");
         }
     }

@@ -5,7 +5,7 @@
 }
 
 <div class="row Box bg-White shadows" style="margin-bottom:10px;">
-    <div class="col-12" style="background-color:white;padding:10px; text-align:center;">
+    <div class="col-md-12 col-sm-11 " style="background-color:white;padding:10px; text-align:center;">
         <h1 class="display-5">سلام به فروشگاه ما خوش آمدید</h1>
     </div>
 </div>
@@ -15,24 +15,29 @@
 <div class="row Box bg-White shadows" style="border-radius: 20px;">
 
     <div class="col-12 d-flex justify-content-between">
-        <h2>محصولات جدید</h2>
-        <a href="#" style="color:black;"><i class="fas fa-plus"></i> موارد بیشتر  </a>
+        <h2 class="float-right">محصولات جدید</h2>
+        <a class="float-left" href="#" style="color:black;"><i class="fas fa-plus"></i> موارد بیشتر  </a>
 
     </div>
 
     @foreach (var item in Model)
     {
-        <div class="col-3 HoverShadow" style="border-radius: 20px; padding: 10px;">
+        <div class="col-lg-3 col-md-5  col-sm-5 col-12 HoverShadow" style="border-radius: 20px; padding: 10px;">
             <div class="bs-component">
                 <div class="card" style="border-radius: 20px;">
 
                     <img class="card-img-top thumbnail-img" src="~/ProductCovers/@item.CoverAddress" alt=@(item.ProductName) title=@(item.ProductName) />
-                    
+
                     <div class="card-body">
                         <h5 class="card-title">@item.ProductName</h5>
                         <hr />
                         <p class="bg-Blue-Dark" style="border-radius: 50px; padding: 10px; text-align: center;">نام مدرس : @item.TeacherName</p>
                         <p class="bg-Green" style="border-radius: 50px; padding: 10px; text-align: center; ">هزینه ی دوره : <span>@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</span></p>
+                        @if (item.DiscountPersent != 0)
+                        {
+                           
+                            <span class="bg-Green DiscountPersent">@(item.DiscountPersent + "%")</span>
+                        }
                         <a class="btn btn-outline-info shadows" asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@item.ProductName style="color:black;">ادامه توضیحات</a>
                     </div>
                 </div>

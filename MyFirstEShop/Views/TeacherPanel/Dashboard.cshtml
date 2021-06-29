@@ -6,7 +6,7 @@
 @model IEnumerable<ProductDetailViewModel>
 
 
-<div class="col-12" style="margin:10px 0">
+<div class="col-12 table-responsive" style="margin:10px 0">
 
     @if (ViewBag.SuccessAlert != null)
     {
@@ -14,7 +14,7 @@
         {
             <div class="col-12 alert alert-dismissible alert-success">
                 <strong>عملیات ثبت دوره با موفقیت انجام شد</strong>
-                <button type="button" class="close" data-dismiss="alert"></button>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
         }
         else if (ViewBag.SuccessAlert == "Faild")
@@ -39,12 +39,12 @@
 
     <table style="margin:auto;">
         <tr>
-            <th style="vertical-align: middle;">نام دوره</th>
-            <th style="vertical-align: middle;">هزینه ی دوره</th>
+            <th>نام دوره</th>
+            <th>هزینه ی دوره</th>
             <th>تعداد ثبت نام کنندگان</th>
-            <th style="vertical-align: middle;">وظعیت دوره</th>
-            <th></th>
-            <th></th>
+            <th>وضعیت دوره</th>
+            <th style="min-width: 350px;">عملیات</th>
+            
         </tr>
 
         @if (Model != null && Model.Count() != 0)
@@ -56,19 +56,19 @@
                     <td>
                         <a asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@item.ProductName
                            style="text-decoration:none;color:black;">
-                            <img title=@item.ProductName alt=@item.ProductName src="~/ProductCovers/@item.CoverAddress" style=" width: 10vw; height: 20vh;" />
+                            <img title=@item.ProductName alt=@item.ProductName src="~/ProductCovers/@item.CoverAddress" style=" min-width:75px;max-width:150px;" />
                             <br />
                             <span>@item.ProductName</span>
                         </a>
 
                     </td>
 
-                    <td>@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</td>
-                    <td>123</td>
+                    <td class="Font-number">@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</td>
+                    <td class="Font-number">@item.NumberOfPurchases</td>
                     <td>@item.Status</td>
-                    <td colspan="2">
+                    <td style="min-width: 350px;">
                         <a class="btn btn-danger" style="color: #F4F6F7;" onclick="DeleteProductModal(@item.ProductId)">حذف</a>
-                        | <a class="btn btn-warning">ویرایش</a> | <a class="btn btn-success" style="color: #F4F6F7;">به روز رسانی دوره</a>
+                        <a class="btn btn-warning">ویرایش</a> <a class="btn btn-success" style="color: #F4F6F7;">به روز رسانی دوره</a>
                     </td>
                 </tr>
             }

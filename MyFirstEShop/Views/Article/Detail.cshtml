@@ -6,13 +6,14 @@
 
 <div class="row Box bg-White shadows">
 
-    <h1 class="col-12">@Model.ProductName</h1>
+    <h1 class="col-lg-12 col-md-11 col-sm-10 col-12 ">@Model.ProductName</h1>
 
     <hr class="col-11" />
 
 
-    <div class="col-7 ">
-        <img src="~/ProductCovers/@Model.CoverAddress" alt=@Model.ProductName title=@Model.ProductName style="width: 100%; height:500px; padding:2%;" />
+
+    <div class="col-7 col-lg-7 col-md-8 col-sm-8 col-12 order-2 order-sm-1 order-md-1 order-lg-1 order-xl-1">
+        <img src="~/ProductCovers/@Model.CoverAddress" alt=@Model.ProductName title=@Model.ProductName style="width: 100%; height:70vh; padding:2%;" />
 
         <hr />
         <div>
@@ -21,19 +22,19 @@
         </div>
 
     </div>
-
-    <div class="offset-1 col-3 ">
+    <div class="col-lg-5 col-md-4 col-sm-4 col-12 order-1 order-sm-2 order-md-2 order-lg-2 order-xl-2">
         <h3>نمای کلی از این محصول</h3>
         <hr />
         <p>@Model.ProductName</p>
-        <p ><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"> </i><span>@Model.TeacherName</span></p>
-        <p ><i style="margin-left: 15px;" class="fas fa-user-graduate"></i> <span> @Model.NumberOfPurchases </span> دانشجو</p>
-        <p ><i style="margin-left: 15px;" class="fas fa-video"></i> <span> @Model.NumberOfVideos</span> ویدئو</p>
-        <p ><span >سطح دوره : </span>@Model.CourceLevel.ToString()</p>
-        <p ><span >تاریخ شروع دوره : </span>@Model.StartDate.ToLongDateString()</p>
-        <p ><span >هزینه ی محصول :</span> @(Model.Price.ToString() == "0" ? "رایگان" : Model.Price.ToString() + " تومان")</p>
-        <a class="btn btn-success text-center" style="display:block; padding:10px;vertical-align:middle;color:white;">افزودن به سبد خرید  <i class="fas fa-shopping-cart"></i></a>
+        <p><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"> </i><span>@Model.TeacherName</span></p>
+        <p><i style="margin-left: 15px;" class="fas fa-user-graduate"></i> <span> @Model.NumberOfPurchases </span> دانشجو</p>
+        <p><i style="margin-left: 15px;" class="fas fa-video"></i> <span> @Model.NumberOfVideos</span> ویدئو</p>
+        <p><span>سطح دوره : </span>@Model.CourceLevel.ToString()</p>
+        <p><span>تاریخ شروع دوره : </span>@Model.StartDate.ToLongDateString()</p>
+        <p><span>هزینه ی محصول :</span> @(Model.Price.ToString() == "0" ? "رایگان" : Model.Price.ToString() + " تومان")</p>
+        <a asp-action="AddToCart" asp-controller="ShopingList" asp-route-productId=@Model.ProductId class="btn btn-success text-center" style="display:block; padding:10px;vertical-align:middle;color:white;">افزودن به سبد خرید  <i class="fas fa-shopping-cart"></i></a>
     </div>
+
 
 </div>
 

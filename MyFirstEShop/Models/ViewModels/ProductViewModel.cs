@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-
+using MyFirstEShop.Models.DatabaseModels;
 
 namespace MyFirstEShop.Models.ViewModels
 {
@@ -12,7 +12,7 @@ namespace MyFirstEShop.Models.ViewModels
     {
 
         [Required(ErrorMessage = "لطفا یک نام برای این دوره انتخاب نماید")]
-        [MaxLength(32)]
+        [MaxLength(150)]
         [Display(Name = "نام دوره")]
         public string Name { get; set; }
 

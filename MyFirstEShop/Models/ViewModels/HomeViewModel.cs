@@ -12,6 +12,7 @@ namespace MyFirstEShop.Models.ViewModels
         public string CoverAddress { get; set; }
         public int Price { get; set; }
         public string TeacherName { get; set; }
+        public int DiscountPersent { get; set; }
 
     }
 }

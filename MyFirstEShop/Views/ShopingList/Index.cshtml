@@ -1,0 +1,68 @@
+﻿
+@model CartViewModel
+
+@{
+    ViewData["Title"] = "سبد خرید های شما";
+}
+
+<div class="row">
+    <div class="col-12 Box shadow bg-White table-responsive">
+        <table class="col-12">
+            @if (Model != null && Model.Items.Count != 0)
+            {
+                <tr>
+                    <th></th>
+                    <th>نام دوره</th>
+                    <th>نام مدرس</th>
+                    <th>قیمت دوره</th>
+                    <th>درصد تخفیف</th>
+                    <th>قیمت نهایی محصول</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td><img style="width:100px;height:100px;" src="~/ProductCovers/@item.ProductCoverAddress" alt=@item.ProductName title=@item.ProductName /></td>
+                        <td>
+                            <a style="text-decoration: none; color: #34495E;" asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@item.ProductName>
+                                @item.ProductName
+                            </a>
+                        </td>
+                        <td>@item.TeacherName</td>
+                        <td style="font-size: 1.4rem;">@item.Price</td>
+                        <td style="font-size: 1.4rem;">@item.DiscountPrice</td>
+                        <td style="font-size: 1.4rem;">@item.FinalPrice</td>
+                        <td>
+                            <form method="post" asp-action="RemoveItem" asp-controller="ShopingList" asp-route-productId=@item.ProductId>
+                                <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt" style="color: #ECF0F1;"></i></button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="7"></td>
+                </tr>
+                <tr class="bg-Green" style="height:5%;">
+                    <td style="font-weight:bolder; padding:4%;">
+                        قیمت نهایی
+                    </td>
+                    <td class="text-primary" colspan="3"></td>
+                    <td style="font-size: 1.4rem;">
+                        @Model.TotalPrice
+                    </td>
+                    <td colspan="2">
+                        <button class="btn btn-warning" >پرداخت نهایی</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">سبد خرید شما خالی است</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -1,26 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MyFirstEShop.Data;
-using Microsoft.EntityFrameworkCore;
+using MyFirstEShop.Repositories;
 
 namespace MyFirstEShop.Component
 {
     public class TeacherInfoViewComponent : ViewComponent
     {
-        private readonly MyDbContext DbContext;
-        public TeacherInfoViewComponent(MyDbContext _dbContext)
+        private readonly ITeacherRepository teacherRepository;
+        public TeacherInfoViewComponent(ITeacherRepository _teacherRepository)
         {
-            DbContext = _dbContext;
+            teacherRepository = _teacherRepository ;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var userId = int.Parse(UserClaimsPrincipal.FindFirst("UserId").Value);
 
-            var teacher = DbContext.TeacherInfos.Include(i => i.Info).Include(i => i.Products).First(u => u.UserId == userId);
+            var teacher = teacherRepository.GetTeacherWithProducts(userId);
 
             return View("~/Views/ViewComponent/TeacherPanel/TeacherInfoView.cshtml", teacher);
         }
