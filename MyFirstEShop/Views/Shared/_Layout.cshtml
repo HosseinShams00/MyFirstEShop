@@ -11,11 +11,6 @@
 </head>
 
 <body class="rtl">
-    <div id="Background-SlidBar" onclick="ReSizeMenu()">
-        <div id="SlidBar">
-
-        </div>
-    </div>
 
     <header class="row">
 
@@ -57,7 +52,7 @@
 
                             </form>
 
-                            
+
 
                         </div>
 
@@ -71,9 +66,6 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="RegisterUser" asp-action="Login">ورود</a>
                     }
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" onclick="ReSizeMenu()" href="#"> <i class="fas fa-list"></i></a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i></a>
                         </li>
@@ -92,10 +84,11 @@
         </nav>
 
 
+
     </header>
-
+    
     <div class="container">
-
+        
         <main role="main" class="pb-3">
 
             @RenderBody()

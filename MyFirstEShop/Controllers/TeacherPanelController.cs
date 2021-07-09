@@ -29,7 +29,7 @@ namespace MyFirstEShop.Controllers
                 return int.Parse(User.FindFirst("UserId").Value);
             }
         }
-        public TeacherPanelController(ITeacherRepository _teacherRepository,IProductRepository _productRepository,ICategoryRepository _categoryRepository)
+        public TeacherPanelController(ITeacherRepository _teacherRepository, IProductRepository _productRepository, ICategoryRepository _categoryRepository)
         {
             teacherRepository = _teacherRepository;
             productRepository = _productRepository;
@@ -115,14 +115,14 @@ namespace MyFirstEShop.Controllers
             {
                 return View(productModel);
             }
-        }   
+        }
 
         [HttpPost]
         public IActionResult RemoveProduct(int productId)
         {
-            var isChanged = productRepository.ChangeProductStatus(ProductStatus.Suspension , productId);
+            var isChanged = productRepository.ChangeProductStatus(ProductStatus.Suspension, productId);
 
-            if ( isChanged == false )
+            if (isChanged == false)
             {
                 TempData["Alert"] = "Faild";
                 return RedirectToAction("Dashboard");
@@ -133,6 +133,20 @@ namespace MyFirstEShop.Controllers
             return RedirectToAction("Dashboard");
         }
 
+
+        public IActionResult EditProductDetail(int productId)
+        {
+            var productView = productRepository.GetProductViewModel(UserId, productId);
+            return View(productView);
+        }
+
+        [HttpPost]
+        public IActionResult EditProductDetail(ProductViewModel productViewModel)
+        {
+            productRepository.EditProductDetail(productViewModel);
+
+            return RedirectToAction("Dashboard");
+        }
 
         private string SaveProductCover(IFormFile formFile)
         {

@@ -8,14 +8,14 @@ namespace MyFirstEShop.Models.ViewModels
 
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "نام")]
-        [MaxLength(32, ErrorMessage = "کاربر محترم شما نمیتوانید بیشتر از 20 کارکتر نام داشته باشید")]
+        [MaxLength(32, ErrorMessage = "کاربر محترم شما نمیتوانید بیشتر از 32 کارکتر نام داشته باشید")]
         [MinLength(4, ErrorMessage = "کاربر محترم شما نمیتوانید کمتر از 4 کارکتر نام داشته باشید")]
         public string FirstName { get; set; }
 
          
 
         [Display(Name = "نام خانوادگی")]
-        [MaxLength(32, ErrorMessage = "کاربر محترم شما نمیتوانید بیشتر از 20 کارکتر نام داشته باشید")]
+        [MaxLength(32, ErrorMessage = "کاربر محترم شما نمیتوانید بیشتر از 32 کارکتر نام داشته باشید")]
         [MinLength(4, ErrorMessage = "کاربر محترم شما نمیتوانید کمتر از 4 کارکتر نام داشته باشید")]
         public string LastName { get; set; }
 

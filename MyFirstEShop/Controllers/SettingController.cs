@@ -6,6 +6,8 @@ namespace MyFirstEShop.Controllers
     [Authorize]
     public class SettingController : Controller
     {
+
+        
         public IActionResult Index()
         {
             return View();

@@ -32,9 +32,6 @@ namespace MyFirstEShop.Models.ViewModels
         [MaxLength(11)]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "آدرس")]
-        public string Address { get; set; }
-
         [Display(Name = "درباره ی")]
         [MaxLength(100)]
         public string About { get; set; }

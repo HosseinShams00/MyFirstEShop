@@ -20,6 +20,7 @@ namespace MyFirstEShop.Data
         public DbSet<User> User { get; set; }
 
         public DbSet<UserSetting> UserSettings { get; set; }
+        public DbSet<UserSecurity> UserSecurities{ get; set; }
 
         public DbSet<Teacher> Teacher { get; set; }
 
@@ -57,7 +58,7 @@ namespace MyFirstEShop.Data
                 .HasOne(Q => Q.Teacher)
                 .WithOne(Q => Q.Info)
                 .HasForeignKey<Teacher>(Q => Q.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
 
             modelBuilder.Entity<User>()
@@ -67,10 +68,16 @@ namespace MyFirstEShop.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<User>()
+                .HasOne(Q => Q.UserSecurity)
+                .WithOne(Q => Q.User)
+                .HasForeignKey<UserSecurity>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
                 .HasMany(Q => Q.Carts)
                 .WithOne(Q => Q.User)
                 .HasForeignKey(Q => Q.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserSetting>()
                 .HasOne(Q => Q.UserInfo)
@@ -83,13 +90,20 @@ namespace MyFirstEShop.Data
                 .HasOne(Q => Q.Info)
                 .WithOne(Q => Q.Teacher)
                 .HasForeignKey<Teacher>(Q => Q.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Teacher>()
                 .HasMany(Q => Q.Products)
                 .WithOne(Q => Q.Teacher)
                 .HasForeignKey(Q => Q.TeacherId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserSecurity>()
+                .HasOne(Q => Q.User)
+                .WithOne(Q => Q.UserSecurity)
+                .HasForeignKey<UserSecurity>(Q => Q.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Cart>()
                 .HasOne(Q => Q.User)
@@ -109,12 +123,12 @@ namespace MyFirstEShop.Data
                 FirstName = "Hossein",
                 LastName = "Shams Pouya",
                 Email = "admin@gmail.com",
-                Password = "1234",
+                /// Password is 1234
+                Password = "$s2$16384$8$1$WMvLICQbkAUri7Lf0nMcZGW5ScrSK8TkNUUpz4TARuQ=$hRqwnMGt8qtp6nTnvih2wyfmCa5CBCNCJDDrM2daUpE=",
                 IsTeacher = true,
                 IsAdmin = true,
+                VerifyEmail = true,
                 RegisterTime = System.DateTime.Now,
-
-
             });
 
             modelBuilder.Entity<Teacher>().HasData(new Teacher

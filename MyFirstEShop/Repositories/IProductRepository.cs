@@ -9,7 +9,7 @@ namespace MyFirstEShop.Repositories
 {
     public interface IProductRepository
     {
-        bool ExistProduct(int productId); 
+        bool ExistProduct(int productId);
         bool ExistProduct(string productName);
         Product GetProduct(int productId);
         Product GetProductWhitOtherInfo(int productId);
@@ -17,8 +17,10 @@ namespace MyFirstEShop.Repositories
         IEnumerable<Product> GetAllProductWithRelations();
         IEnumerable<HomeViewModel> GetProducts();
         ProductDetailViewModel GetProductDetail(int productId);
+        ProductViewModel GetProductViewModel(int userId, int productId);
         IEnumerable<ProductDetailViewModel> GetProductDetailListForTeacher(int userId);
-        void AddNewProduct(ProductViewModel productViewModel,int userId ,string productCoverAddress);
+        void AddNewProduct(ProductViewModel productViewModel, int userId, string productCoverAddress);
+        bool EditProductDetail(ProductViewModel productViewModel);
         bool ChangeProductStatus(ProductStatus productStatus, int productId);
     }
 
@@ -28,7 +30,7 @@ namespace MyFirstEShop.Repositories
         private readonly ITeacherRepository teacherRepository;
         private readonly ICategoryRepository categoryRepository;
 
-        public ProductRepository(MyDbContext _dbContext,ITeacherRepository _teacherRepository,ICategoryRepository _categoryRepository)
+        public ProductRepository(MyDbContext _dbContext, ITeacherRepository _teacherRepository, ICategoryRepository _categoryRepository)
         {
             DbContext = _dbContext;
             teacherRepository = _teacherRepository;
@@ -39,7 +41,7 @@ namespace MyFirstEShop.Repositories
         {
             return DbContext.Products.Any(i => i.Id == productId);
         }
-       
+
 
         public Product GetProduct(int productId)
         {
@@ -65,12 +67,12 @@ namespace MyFirstEShop.Repositories
 
         public IEnumerable<Product> GetAllProductWithRelations()
         {
-           return DbContext
-                .Products
-                .Include(i => i.ProductOtherInfo)
-                .Include(i => i.Teacher)
-                .ThenInclude(i => i.Info)
-                .ToList();
+            return DbContext
+                 .Products
+                 .Include(i => i.ProductOtherInfo)
+                 .Include(i => i.Teacher)
+                 .ThenInclude(i => i.Info)
+                 .ToList();
         }
 
         public IEnumerable<HomeViewModel> GetProducts()
@@ -113,9 +115,37 @@ namespace MyFirstEShop.Repositories
             return productDetail;
         }
 
+        public ProductViewModel GetProductViewModel(int userId, int productId)
+        {
+            var checkTeacher = teacherRepository.TeacherHaveThisProduct(userId, productId);
+            if (checkTeacher)
+            {
+                var product = GetProductWhitAllRelation(productId);
+                return new ProductViewModel()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Description = product.Description,
+                    CourceLevel = product.ProductOtherInfo.CourceLevel,
+                    Create = product.Create,
+                    ProductCoverAddress = product.ProductCoverAddress,
+                    HaveUpdate = product.HaveUpdate,
+                    DiscountPercent = product.DiscountPercent,
+                    EndSupport = product.EndSupport,
+                    Categories = categoryRepository.GetCategories()
+                };
+            }
+            else
+                return null;
+        }
+
         public IEnumerable<ProductDetailViewModel> GetProductDetailListForTeacher(int userId)
         {
             var teacher = teacherRepository.GetTeacherWithProducts(userId);
+
+            if (teacher.Products == null || teacher.Products.Count == 0)
+                return new List<ProductDetailViewModel>();
 
             return teacher.Products
                 .Select(i => new ProductDetailViewModel()
@@ -158,7 +188,7 @@ namespace MyFirstEShop.Repositories
                 ProductCoverAddress = productCoverAddress,
                 Price = productViewModel.Price,
                 HaveUpdate = true,
-                DiscountPercent = productViewModel.OffPercent,
+                DiscountPercent = productViewModel.DiscountPercent,
                 TeacherId = teacher.Id,
                 Create = System.DateTime.Now,
                 EndSupport = null,
@@ -190,7 +220,7 @@ namespace MyFirstEShop.Repositories
             DbContext.SaveChanges();
         }
 
-        public bool ChangeProductStatus(ProductStatus productStatus,int productId)
+        public bool ChangeProductStatus(ProductStatus productStatus, int productId)
         {
             var product = GetProduct(productId);
 
@@ -198,6 +228,33 @@ namespace MyFirstEShop.Repositories
                 return false;
 
             product.Status = ProductStatus.Suspension;
+
+            DbContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool EditProductDetail(ProductViewModel productViewModel)
+        {
+            var product = GetProductWhitAllRelation(productViewModel.Id.Value);
+
+            if (product.Name != productViewModel.Name)
+                product.Name = productViewModel.Name;
+
+            if (product.Price != productViewModel.Price)
+                product.Price = productViewModel.Price;
+
+            if (product.ProductOtherInfo.CourceLevel != productViewModel.CourceLevel)
+                product.ProductOtherInfo.CourceLevel = productViewModel.CourceLevel;
+
+            if (product.DiscountPercent != productViewModel.DiscountPercent)
+                product.DiscountPercent = productViewModel.DiscountPercent;
+
+            if (product.Categories.Any(i => i.Id == productViewModel.CategoryId) == false)
+                product.Categories.Add(categoryRepository.GetCategory(productViewModel.CategoryId));
+
+            if (product.Name != productViewModel.Name)
+                product.Name = productViewModel.Name;
 
             DbContext.SaveChanges();
 

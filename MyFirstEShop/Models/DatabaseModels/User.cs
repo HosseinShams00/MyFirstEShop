@@ -14,16 +14,15 @@ namespace MyFirstEShop.Models.DatabaseModels
         public string LastName { get; set; }
 
         public string Email { get; set; }
+        public bool VerifyEmail { get; set; }
 
-        [MaxLength(32)]
+        [MaxLength(110)]
         public string Password { get; set; }
 
         [MaxLength(11)]
         public string PhoneNumber { get; set; }
 
-        public string Address { get; set; }
-
-        [MaxLength(100)]
+        [MaxLength(300)]
         public string About { get; set; }
 
         public bool IsAdmin { get; set; }
@@ -32,11 +31,16 @@ namespace MyFirstEShop.Models.DatabaseModels
 
         public System.DateTime? RegisterTime { get; set; }
 
+        public System.Guid SecurityStamp { get; set; }
+
+
         #region Navigation Property
 
         public Teacher Teacher { get; set; }
         public UserSetting UserSetting { get; set; }
+        public UserSecurity UserSecurity { get; set; }  
         public ICollection<Cart> Carts { get; set; }
+
         #endregion
     }
 }

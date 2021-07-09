@@ -262,6 +262,8 @@ a {
     text-align: center;
     background-color: rgb(243, 58, 58);
     border-radius: 10px;
+    color: white;
+    font-size: 1em;
 }
 
     .field-validation-error span {

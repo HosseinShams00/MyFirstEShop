@@ -11,7 +11,7 @@ namespace MyFirstEShop.Repositories
         bool ExistTeacher(int userId);
         Teacher GetTeacher(int userId);
         Teacher GetTeacherWithProducts(int userID);
-        
+        bool TeacherHaveThisProduct(int userId, int productId);
     }
 
     public class TeacherRepository : ITeacherRepository
@@ -34,6 +34,10 @@ namespace MyFirstEShop.Repositories
                 .SingleOrDefault(u => u.UserId == userId);
         }
 
+        public bool TeacherHaveThisProduct(int userId ,int productId)
+        {
+            return DbContext.Teacher.Include(i => i.Products).Any(i => i.UserId == userId && i.Products.Any(i => i.Id == productId));
+        }
 
         public Teacher GetTeacherWithProducts(int userID)
         {

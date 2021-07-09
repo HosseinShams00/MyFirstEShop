@@ -1,4 +1,4 @@
-﻿@model MyFirstEShop.Models.ViewModels.UserViewModel
+﻿@model UserViewModel
 
 @{
     ViewData["Title"] = "تغییر اطلاعات حساب";
@@ -20,11 +20,6 @@
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control border-bottom-blue" style="font-size: x-large;"/>
                 <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <textarea asp-for="Address" class="form-control border-bottom-blue" style="resize: none; height: 20vh;"></textarea>
-                <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="About" class="control-label"></label>

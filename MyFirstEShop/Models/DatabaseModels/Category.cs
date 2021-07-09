@@ -13,6 +13,9 @@ namespace MyFirstEShop.Models.DatabaseModels
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [MaxLength(300)]
+        public string CategoryImageAddress { get; set; }
+
         public ICollection<Product> Products { get; set; }
     }
 }

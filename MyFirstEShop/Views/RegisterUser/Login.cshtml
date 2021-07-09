@@ -7,6 +7,63 @@
 
 <div class=" col-12 col-md-12 offset-lg-2 col-lg-8  Box bg-White-Gradian bg-testCol shadows">
 
+    @if (ViewBag.ProcessDetail == "success-Creat")
+    {
+        <div class="alert alert-success">
+            <span>
+                عملیات با موفقیت انجام شد لطفا ایمیل خود را چک نمایید
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else if (ViewBag.ProcessDetail == "success-ResetPassword")
+    {
+        <div class="alert alert-success">
+            <span>
+                عملیات با موفقیت انجام شد لطفا ایمیل خود را چک نمایید
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else if (ViewBag.ProcessDetail == "success-VerifyEmail")
+    {
+        <div class="alert alert-success">
+            <span>
+                ایمیل شما با موفقیت ثبت گردید
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else if (ViewBag.ProcessDetail == "Check-EmilVerify")
+    {
+        <div class="alert alert-success">
+            <strong>
+                لطفا ایمیل خود را توسط پیغامی که به ایمیلتان ارسال شده بررسی نمایید
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else if (ViewBag.ProcessDetail == "error")
+    {
+        <div class="alert alert-danger">
+            <span>
+                عملیات با شکست مواجه شد لطفا بعدا تلاش مجدد نماید
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    }
+
     <h1 class="col-12">فرم ورود</h1>
     <h3 class="">  به سایت ما خوش امدید برای ورود فرم زیر را تکمیل کنید</h3>
     <hr class="col-10" />
@@ -19,21 +76,22 @@
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control border-bottom-blue" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control border-bottom-blue" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="Password"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RememberMe" class="control-label"></label>
                 <input asp-for="RememberMe" />
-                <span asp-validation-for="RememberMe" class="text-danger"></span>
+                <span asp-validation-for="RememberMe"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="ورود" class="btn btn-primary" />
+                <input type="submit" value="ورود" class="btn btn-primary" style="width:100%;" />
                 <input type="hidden" asp-for="RedirectUrl" />
+                <a class="text-danger" asp-action="ResetPassword" asp-controller="RegisterUser">رمز عبور را فراموش کرده اید؟</a>
             </div>
 
         </form>

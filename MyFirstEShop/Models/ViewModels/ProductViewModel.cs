@@ -10,6 +10,7 @@ namespace MyFirstEShop.Models.ViewModels
 {
     public class ProductViewModel
     {
+        public int? Id { get; set; }
 
         [Required(ErrorMessage = "لطفا یک نام برای این دوره انتخاب نماید")]
         [MaxLength(150)]
@@ -26,6 +27,8 @@ namespace MyFirstEShop.Models.ViewModels
         [DataType(DataType.ImageUrl,ErrorMessage = "لطفا فرمت عکس انتخاب کنید")]
         public IFormFile ProductImage { get; set; }
 
+        public string ProductCoverAddress { get; set; }
+
 
         [Required(ErrorMessage = "داشتن قیمت اجباری است قیمت 0 به معنی رایگان بودن است")]
         [Display(Name = "قیمت")]
@@ -41,7 +44,7 @@ namespace MyFirstEShop.Models.ViewModels
         public bool HaveUpdate { get; set; }
 
         [Display(Name = "درصد تخفیف")]
-        public int OffPercent { get; set; }
+        public int DiscountPercent { get; set; }
 
         [Display(Name = "سطح دوره")]
         public CourcesLevel CourceLevel { get; set; }

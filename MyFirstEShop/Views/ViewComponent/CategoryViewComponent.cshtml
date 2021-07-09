@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Category>
+
+
+
+<div class="row " style=" margin: auto; width: 50%; padding:10px 0;">
+
+    @foreach (var category in Model)
+    {
+        <div class=" col-12 col-sm-6 col-lg-4 ">
+            <a asp-action="CategoryProducts" asp-controller="Article" asp-route-categoryName=@category.Name style="text-decoration:none;color:black;">
+                <div class="bs-component HoverShadow">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <img src="~/CategoryCovers/@category.CategoryImageAddress" style="width:100px;height:100px;" />
+                            <h5 class="mt-3">@category.Name</h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+</div> 
