@@ -1,0 +1,34 @@
+@model TicketViewModel
+
+<div class="row bg-White Box">
+
+    <div class="col-12">
+
+        <form method="POST" asp-area="" asp-action="SubmitNewTicket" asp-controller="Ticket" >
+            <div class="form-group">
+                <label asp-for="Subject" class="control-label"></label>
+                <input asp-for="Subject" class="form-control border-bottom-blue"
+                    placeholder="لطفا در حد چند واژه موضوع را بنویسید" style="font-size: x-large;" />
+                <span asp-validation-for="Subject"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserQuestion" class="control-label"></label>
+                <textarea asp-for="UserQuestion" class="form-control border-bottom-blue"
+                    style="height: 300px;font-size: large;"></textarea>
+                <span asp-validation-for="UserQuestion"></span>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="ثبت">
+        </form>
+
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}

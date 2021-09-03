@@ -7,13 +7,14 @@ namespace MyFirstEShop.Component
     public class UserSetting_DashboardViewComponent : ViewComponent
     {
         private readonly IUserRepository userRepository;
-        public UserSetting_DashboardViewComponent(IUserRepository _userRepository )
+        public UserSetting_DashboardViewComponent(IUserRepository _userRepository)
         {
             userRepository = _userRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int userId)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            int userId = int.Parse(UserClaimsPrincipal.FindFirst("UserId").Value);
             return View("~/Views/ViewComponent/UserSetting/Dashboard.cshtml", userRepository.GetUserView(userId));
         }
     }

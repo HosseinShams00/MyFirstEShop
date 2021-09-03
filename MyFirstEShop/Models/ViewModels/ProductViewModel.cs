@@ -22,7 +22,7 @@ namespace MyFirstEShop.Models.ViewModels
         public string Description { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا عکس دوره را انتخاب نماید")]
+        
         [Display(Name = "عکس دوره")]
         [DataType(DataType.ImageUrl,ErrorMessage = "لطفا فرمت عکس انتخاب کنید")]
         public IFormFile ProductImage { get; set; }
@@ -33,7 +33,7 @@ namespace MyFirstEShop.Models.ViewModels
         [Required(ErrorMessage = "داشتن قیمت اجباری است قیمت 0 به معنی رایگان بودن است")]
         [Display(Name = "قیمت")]
         public int Price { get; set; }
-        // public Stream ProductCover { get; set; }
+        
 
         [Display(Name = "تاریخ تولید")]
         public DateTime Create { get; set; }
@@ -49,7 +49,7 @@ namespace MyFirstEShop.Models.ViewModels
         [Display(Name = "سطح دوره")]
         public CourcesLevel CourceLevel { get; set; }
 
-        public int CategoryId { get; set; }
+        public int[] SelectedCategoriesId { get; set; }
 
         [Display(Name = "گروه ها")]
         public IEnumerable<Category> Categories { get; set; }

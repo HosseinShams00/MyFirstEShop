@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFirstEShop.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using MyFirstEShop.Attributes;
 
 namespace MyFirstEShop.Controllers
 {
     [Authorize]
+    [TypeFilter(typeof(CheckUserSecurityStampAttribute))]
     public class ShopingListController : Controller
     {
         private readonly ICartRepository CartRepository;

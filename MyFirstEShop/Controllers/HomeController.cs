@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFirstEShop.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using MyFirstEShop.Data;
+using MyFirstEShop.Attributes;
 using MyFirstEShop.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstEShop.Controllers
 {
+    [TypeFilter(typeof(CheckUserSecurityStampAttribute))]
     public class HomeController : Controller
     {
         private readonly IProductRepository ProductRepository;
@@ -36,6 +31,12 @@ namespace MyFirstEShop.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("/Error/{ErrorCode}")]
+        public IActionResult Error(int ErrorCode)
+        {
+            return NotFound();
         }
     }
 

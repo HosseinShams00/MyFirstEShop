@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Product>
+
+
+<div class="row">
+
+    @await Component.InvokeAsync("SearchProduct")
+
+    @if (ViewBag.EditProdut == "success")
+    {
+        <div class="col-12 alert alert-success">
+            <strong>عملیات با موفقیت انجام شد</strong>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    }
+    else if (ViewBag.EditProdut == "faild")
+    {
+        <div class="col-12 alert alert-danger">
+            <strong>عملیات شکست خورد</strong>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    }
+
+</div>
+
+<div class="row">
+
+
+
+    @if (Model.Count() != 0)
+    {
+        <div class="table-responsive col-12 ">
+            <table>
+                <tr>
+                    <th>نام محصول</th>
+                    <th>نام مدرس</th>
+                    <th>تعداد شرکت کنندگان</th>
+                    <th>قیمت</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/ProductCovers/@product.ProductCoverAddress" style="width: 200px; height: 200px; border-radius: 10px;" /><br />
+
+                            <strong>@product.Name</strong>
+                        </td>
+                        <td>@(product.Teacher.Info.FirstName + product.Teacher.Info.LastName)</td>
+                        <td>@product.ProductOtherInfo.NumberOfPurchases</td>
+                        <td>@product.Price</td>
+                        <td>
+                            
+                              <a class="btn btn-warning" asp-area="Admin" asp-action="EditProduct" asp-controller="ProductManagement" asp-route-userId=@product.Teacher.Info.Id asp-route-productId=@product.Id>ویرایش اطلاعات</a>
+                            
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+
+
+</div>
+

@@ -38,7 +38,10 @@ namespace MyFirstEShop.Models.DatabaseModels
 
         public Teacher Teacher { get; set; }
         public UserSetting UserSetting { get; set; }
-        public UserSecurity UserSecurity { get; set; }  
+        public UserSecurity UserSecurity { get; set; }
+
+        public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<UserUserAccess> UserUserAccesses { get; set; }
         public ICollection<Cart> Carts { get; set; }
 
         #endregion

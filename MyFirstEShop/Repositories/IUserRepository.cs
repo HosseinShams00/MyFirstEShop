@@ -3,7 +3,8 @@ using System.Linq;
 using MyFirstEShop.Models.DatabaseModels;
 using MyFirstEShop.Models.ViewModels;
 using MyFirstEShop.Data;
-
+using MyFirstEShop.Areas.Admin.Models.ViewModel;
+using System.Collections.Generic;
 
 namespace MyFirstEShop.Repositories
 {
@@ -18,6 +19,7 @@ namespace MyFirstEShop.Repositories
         void RemoveUser(User user);
         bool CheckUserPasssword(string password, int userid);
         void ChangeInfo(UserViewModel user);
+        IEnumerable<User> SearchUser(SearchUserViewModel searchUserViewModel);
 
 
     }
@@ -71,7 +73,7 @@ namespace MyFirstEShop.Repositories
                 RegisterTime = DateTime.Now,
                 SecurityStamp = Guid.NewGuid()
             });
-           
+
         }
 
         public void RemoveUser(User user)
@@ -105,6 +107,54 @@ namespace MyFirstEShop.Repositories
             };
         }
 
+        public IEnumerable<User> SearchUser(SearchUserViewModel searchUserViewModel)
+        {
+            var userQuery = DbContext.User.AsQueryable();
+
+            if (searchUserViewModel.FirstName != null)
+            {
+                userQuery = userQuery.Where(q => q.FirstName == searchUserViewModel.FirstName.Trim());
+            }
+
+            if (searchUserViewModel.LastName != null)
+            {
+                userQuery = userQuery.Where(q => q.LastName == searchUserViewModel.LastName.Trim());
+            }
+
+            if (searchUserViewModel.Email != null)
+            {
+                userQuery = userQuery.Where(q => q.Email == searchUserViewModel.Email.Trim());
+            }
+
+            if (searchUserViewModel.PhoneNumber != null)
+            {
+                userQuery = userQuery.Where(q => q.PhoneNumber == searchUserViewModel.PhoneNumber.Trim());
+            }
+
+            if(searchUserViewModel.SelectedOptionsId != null)
+            {
+                if (searchUserViewModel.SelectedOptionsId.Contains((int)Options.Nothing))
+                {
+                    userQuery = userQuery.Where(q => q.IsAdmin == false && q.IsTeacher == false);
+                }
+                else
+                {
+                    if (searchUserViewModel.SelectedOptionsId.Contains((int)Options.Admin))
+                    {
+                        userQuery = userQuery.Where(q => q.IsAdmin == true);
+                    }
+                    if (searchUserViewModel.SelectedOptionsId.Contains((int)Options.Teacher))
+                    {
+                        userQuery = userQuery.Where(q => q.IsTeacher == true);
+                    }
+                }
+            }
+
+            return userQuery.ToList();
+
+
+
+        }
     }
 
 }

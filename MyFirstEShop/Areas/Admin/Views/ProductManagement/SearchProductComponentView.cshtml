@@ -1,0 +1,37 @@
+﻿@model SearchProductViewModel
+
+
+<div class="bg-White-Gradian col-12 pr-3">
+    <form class="row p-2" asp-area="Admin" asp-controller="ProductManagement" asp-action="Result" method="get">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group col-4" style="display:inline-block;">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group col-4" style="display:inline-block;">
+            <label asp-for="TeacherName" class="control-label"></label>
+            <input asp-for="TeacherName" class="form-control" />
+        </div>
+        <div class="form-group col-4" style="display:inline-block;">
+            <label asp-for="Categories" class="control-label"></label>
+            <select asp-for="SelectedCategoryId" class="form-control">
+
+                <option value="0">
+                    All
+                </option>
+
+                @foreach (var category in Model.Categories)
+                {
+                    <option value=@category.Id>
+                        @category.Name
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-4 offset-8">
+            <input type="submit" value="جستجو" class="btn btn-success fa-pull-left" />
+        </div>
+    </form>
+</div>
+
+

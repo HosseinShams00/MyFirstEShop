@@ -18,7 +18,7 @@
         <hr />
         <div>
             <h1>@Model.ProductName</h1>
-            <p class="text-justify" style="text-wrap:avoid;">@Model.Description</p>
+            @Html.Raw(Model.Description)
         </div>
 
     </div>

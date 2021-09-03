@@ -1,0 +1,56 @@
+@model IEnumerable<TicketViewModel>
+
+
+<h3>سلام لطفا برای ارسال پیام به مدیریت بر روی دکمه ی ارسال تیکت کلیک نماید</h3>
+
+<div class="col-12">
+
+
+    <a asp-area="" asp-action="New" asp-controller="Ticket" class="btn btn-success offset-10"
+        style="text-decoration: none;color:white;" >ارسال تیکت</a>
+
+</div>
+
+<div class="col-12 table-responsive mt-3">
+
+    <table>
+        <thead>
+            <tr>
+                <th style="font-size: larger;">#</th>
+                <th style="font-size: larger;">تاریخ ایجاد</th>
+                <th style="font-size: larger;">موضوع درخواست</th>
+                <th style="font-size: larger;">مشاهده ی پرسش و پاسخ</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @if (Model.Count() != 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MessageId</td>
+                        <td>@item.UserSendQuestionDateTime</td>
+                        <td>@item.Subject</td>
+                        <td>
+                            <a asp-area="" asp-action="ReadTicket" asp-controller="Ticket" asp-route-MID=@item.MessageId class="btn btn-info" style="text-decoration: none;color:white;">مشاهد</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        داده ای موجود نمیباشد
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>

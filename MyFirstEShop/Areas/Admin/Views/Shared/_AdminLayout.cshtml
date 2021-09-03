@@ -1,0 +1,111 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link href="~/lib/bootstrap-v4-rtl-master/dist/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.3-web/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body class="rtl">
+
+    <header class="row">
+
+        <nav class="col-12 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">تمرین دوم - فروشگاه</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                   <div class="fa-pull-left UserAccountBox" style="">
+
+                            <form asp-area="" asp-controller="RegisterUser" asp-action="Logout" method="post">
+                                <img src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
+                                     style="width: 50px; height: 50px; border-radius: 50%; background-position: center; float: left;" />
+
+                                <span> </span>
+
+                                <div class="btn-group">
+                                    <button dir="ltr" type="button" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;background-color:transparent;margin:5px;">
+                                        @(User.FindFirst("FirstName").Value + " " +User.FindFirst("LastName").Value)
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-controller="Setting" asp-action="Index"><i class="fas fa-cogs" style="margin-left:15px;"></i> تنظیمات</a>
+                                        @if (bool.Parse(User.FindFirst("IsAdmin").Value))
+                                        {
+                                            <a asp-area="Admin" asp-action="Index" asp-controller="Home" class="dropdown-item"> ورود به بخش مدیریت</a>
+                                        }
+                                        @if (bool.Parse(User.FindFirst("IsTeacher").Value))
+                                        {
+                                            <a asp-area="Teacher" asp-action="Index" asp-controller="Home" class="dropdown-item"><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"></i> ورود به بخش مدرسین</a>
+                                        }
+                                        <button class="dropdown-item btn-danger" type="submit"><i class="fas fa-power-off" style="margin-left:15px; color:red;"></i> خروج</button>
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+
+                        </div>
+
+
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">تماس با ما</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ShopingList" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
+
+    </header>
+
+    <div class="row">
+        <div class="col-3 fa-pull-right bg-White-Gradian" style="height: 100%; padding:0;">
+        
+        @await Component.InvokeAsync("HomeMenu")
+
+        </div>
+        <main role="main" class="pb-3 col-9 ">
+
+            @RenderBody()
+        </main>
+
+    </div>
+
+
+
+    <footer class="bg-white border-top footer text-muted" style="margin:0;">
+        <div class="container">
+            <p style="margin-bottom:0;">Hello World</p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

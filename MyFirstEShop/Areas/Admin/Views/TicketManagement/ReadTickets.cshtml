@@ -1,0 +1,65 @@
+@model TicketViewModel
+
+@if (Model != null)
+{
+    <div class="row bg-White">
+
+        <div class="col-10 offset-1 mt-4">
+            <h4>
+                شما در حال مشاهده ی تیکت شماره ی : <strong>@Model.MessageId</strong>
+            </h4>
+            <hr class="col-10 offset-1">
+            <form>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control border-bottom-blue" disabled style="font-size: large;">
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserSendQuestionDateTime" class="control-label"></label>
+                    <input asp-for="UserSendQuestionDateTime" class="form-control border-bottom-blue" disabled
+                    style="font-size: large;">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-12">
+            <h3>پرسش و پاسخ : </h3>
+            <hr class="col-10 offset-1">
+
+            <div class="col-10 Box m-auto" style="background-color: #9cd39d;">
+                <p style="color: #2E4053;">@Model.UserQuestion</p><br>
+                <hr class="mb-0 col-10 offset-1">
+                <span class="col-2 offset-10 mb-0 mt-4 pl-0" style="color: #2E4053;">@Model.UserSendQuestionDateTime</span>
+            </div>
+
+            <form asp-area="Admin" asp-action="SetAnswer" asp-controller="TicketManagement" method="POST">
+                <div class="form-group">
+                    <label asp-for="AdminAnswer" class="control-label"></label>
+                    <textarea asp-for="AdminAnswer" class="form-control m-auto " style="height: 20vh;width:95%"></textarea>
+                    <span asp-validation-for="AdminAnswer" class="text-danger"></span>
+                </div>
+
+                <input type="submit" class="btn btn-success" value="ثبت پاسخ">
+
+                <input asp-for="UserId" type="hidden">
+                <input asp-for="MessageId"  type="hidden">
+
+            </form>
+        </div>
+
+
+    </div>
+}
+else
+{
+    <h1>
+        کاربر گرامی همچین تیکتی یافت نشد.
+    </h1>
+}
+
+
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}

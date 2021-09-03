@@ -1,0 +1,47 @@
+﻿@model SearchUserViewModel
+
+
+<div class="col-12 bg-White-Gradian p-4">
+
+    <form class="CForm row" asp-area="Admin" asp-action="Result" asp-controller="UserManagement" method="get">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group col-4" style="display: inline-block;">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div class="form-group col-4" style="display: inline-block;">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div class="form-group col-4" style="display: inline-block;">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group col-4" style="display: inline-block;">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber"></span>
+        </div>
+
+        <div class="form-group col-4 pt-4" style="display: inline-block;">
+            <label class="control-label d-block">سطح کاربر</label>
+            <select multiple asp-for="SelectedOptionsId" id="SELECT" class="d-block w-100" style="font-size: larger;">
+                @foreach (var item in Model.SelectedOptions)
+                {
+                    <option value=@((int)(item))>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-4 pt-4" style="display: inline-block;">
+            <input type="submit" value="جستجو" class="btn btn-success fa-pull-left" style=" width: 30%;" />
+        </div>
+    </form>
+</div>
+

@@ -25,33 +25,33 @@
 
     @*<div class="carousel slide" data-ride="carousel" style="background-color: black;">
         <div class="carousel-inner col-8 offset-2" >*@
-            @foreach (var item in Model)
-            {
-                 <div class="col-lg-3 col-md-5  col-sm-5 col-12 HoverShadow " style="border-radius: 20px; padding: 10px;"> 
-                @*<div class="HoverShadow" style="">*@
-                    <div class="bs-component">
-                        <div class="card" style="border-radius: 20px;">
-                        
-                            <img class="card-img-top thumbnail-img" src="~/ProductCovers/@item.CoverAddress" alt=@(item.ProductName) title=@(item.ProductName) />
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-5  col-sm-5 col-12 HoverShadow " style="border-radius: 20px; padding: 10px;">
+            @*<div class="HoverShadow" style="">*@
+            <div class="bs-component">
+                <div class="card" style="border-radius: 20px;">
 
-                            <div class="card-body">
-                                <h5 class="card-title">@item.ProductName</h5>
-                                <hr />
-                                <p class="bg-Blue-Dark" style="border-radius: 50px; padding: 10px; text-align: center;">نام مدرس : @item.TeacherName</p>
-                                <p class="bg-Green" style="border-radius: 50px; padding: 10px; text-align: center; ">هزینه ی دوره : <span>@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</span></p>
-                                @if (item.DiscountPersent != 0)
-                                {
-                                
-                                    <span class="bg-Green DiscountPersent">@(item.DiscountPersent + "%")</span>
-                                }
-                                <a class="btn btn-outline-info shadows" asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@item.ProductName style="color:black;">ادامه توضیحات</a>
-                            </div>
-                        </div>
+                    <img class="card-img-top thumbnail-img" src="~/ProductCovers/@item.CoverAddress" alt=@(item.ProductName) title=@(item.ProductName) />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ProductName</h5>
+                        <hr />
+                        <p class="bg-Blue-Dark" style="border-radius: 50px; padding: 10px; text-align: center;">نام مدرس : @item.TeacherName</p>
+                        <p class="bg-Green" style="border-radius: 50px; padding: 10px; text-align: center; ">هزینه ی دوره : <span>@(item.Price.ToString() == "0" ? "رایگان" : item.Price.ToString() + " تومان")</span></p>
+                        @if (item.DiscountPersent != 0)
+                        {
+
+                            <span class="bg-Green DiscountPersent">@(item.DiscountPersent + "%")</span>
+                        }
+                        <a class="btn btn-outline-info shadows" asp-controller="Article" asp-action="Detail" asp-route-productId=@item.ProductId asp-route-productName=@(item.ProductName.Replace(" ","-")) style="color:black;">ادامه توضیحات</a>
                     </div>
                 </div>
-            }
-            @*</div>*@
-    </div>
+            </div>
+        </div>
+    }
+    @*</div>*@
+</div>
 
 
 

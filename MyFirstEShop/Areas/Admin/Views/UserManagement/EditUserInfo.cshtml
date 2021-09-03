@@ -1,0 +1,106 @@
+﻿@model EditUserInfoViewModel
+
+@{
+    ViewData["Title"] = "EditUserAccess";
+}
+
+<div class="row p-4">
+    <div class="col-12">
+        <form asp-area="Admin" asp-action="EditUserInfo" asp-controller="UserManagement" class="row CForm"
+            method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (Model.AdminAccess.Contains(Access.CanSetAdmin))
+            {
+                <div class="form-group form-check col-6 ">
+                    <h3 class="d-inline-block">آیا آین کاربر را می خواهید <span style="color:red;">ادمین</span> کنید ؟ </h3>
+                    <input asp-for="User.IsAdmin" class="form-check-input ml-2" style="display:inline-block;" />
+                </div>
+            }
+            
+            @if (Model.AdminAccess.Contains(Access.CanSetTeacher))
+            {
+                <div class="form-group form-check col-6">
+                    <h3 class="d-inline-block">آیا آین کاربر را می خواهید <span style="color:green;">مدرس</span> کنید ؟
+                    </h3>
+                    <input asp-for="User.IsTeacher" class="form-check-input ml-2" style="display:inline-block;" />
+                </div>
+            }
+            @if (Model.AdminAccess.Contains(Access.CanSetAccessForUser))
+            {
+                <div class="form-group col-4 pt-4" style="display: inline-block;">
+                    <label class="control-label d-block">سطوح کاربر</label>
+                    <select multiple asp-for="UserAccess" id="SELECT" class="d-block w-100"
+                    style="font-size: larger;">
+                        @foreach (var item in Enum.GetValues(typeof(Access)).Cast<Access>())
+                        {
+                            <option value=@((int)(item))>
+                                @item.ToString()
+                            </option>
+                        }
+                    </select>
+                </div>
+            }
+            @if (Model.AdminAccess.Contains(Access.CanEditUserInfo))
+            {
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label asp-for="User.FirstName" class="control-label"></label>
+                        <input asp-for="User.FirstName" class="form-control border-bottom-blue"
+                        style="font-size: x-large;" />
+                        <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.LastName" class="control-label"></label>
+                        <input asp-for="User.LastName" class="form-control border-bottom-blue"
+                        style="font-size: x-large;" />
+                        <span asp-validation-for="User.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.Email" class="control-label"></label>
+                        <input asp-for="User.Email" class="form-control border-bottom-blue" style="font-size: x-large;" />
+                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.Password" class="control-label"></label>
+                        <input asp-for="User.Password" class="form-control border-bottom-blue"
+                        style="font-size: x-large;" />
+                        <span asp-validation-for="User.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.PhoneNumber" class="control-label"></label>
+                        <input asp-for="User.PhoneNumber" class="form-control border-bottom-blue"
+                        style="font-size: x-large;" />
+                        <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.VerifyEmail" class="control-label"></label>
+                        <input asp-for="User.VerifyEmail" class="form-check-input ml-2" style="font-size: x-large;" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="User.About" class="control-label"></label>
+                        <textarea asp-for="User.About" class="form-control border-bottom-blue"
+                        style="resize: none; height: 20vh;"></textarea>
+                        <span asp-validation-for="User.About" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+
+
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="ثبت" />
+            </div>
+            <input asp-for="User.Id" type="hidden" />
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#SELECT').select2();
+        });
+    </script>
+}

@@ -1,27 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using MyFirstEShop.Models.DatabaseModels;
 using MyFirstEShop.Models.ViewModels;
 using MyFirstEShop.Repositories;
-using MyFirstEShop.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 
-namespace MyFirstEShop.Controllers
+namespace MyFirstEShop.Areas.Teacher.Controllers
 {
-    [Authorize]
-    public class TeacherPanelController : Controller
+    [Area("Teacher")]
+    public class HomeController : Controller
     {
-
-        private readonly ITeacherRepository teacherRepository;
-        private readonly IProductRepository productRepository;
-        private readonly ICategoryRepository categoryRepository;
-
         public int UserId
         {
             get
@@ -29,7 +18,12 @@ namespace MyFirstEShop.Controllers
                 return int.Parse(User.FindFirst("UserId").Value);
             }
         }
-        public TeacherPanelController(ITeacherRepository _teacherRepository, IProductRepository _productRepository, ICategoryRepository _categoryRepository)
+
+        private readonly ITeacherRepository teacherRepository;
+        private readonly IProductRepository productRepository;
+        private readonly ICategoryRepository categoryRepository;
+
+        public HomeController(ITeacherRepository _teacherRepository, IProductRepository _productRepository, ICategoryRepository _categoryRepository)
         {
             teacherRepository = _teacherRepository;
             productRepository = _productRepository;
@@ -38,22 +32,11 @@ namespace MyFirstEShop.Controllers
 
         public IActionResult Index()
         {
-            if (!teacherRepository.ExistTeacher(UserId))
-            {
-                return NotFound();
-            }
             return RedirectToAction("Dashboard");
         }
-
-
         public IActionResult Dashboard()
         {
             ViewBag.SuccessAlert = TempData["Alert"];
-
-            if (!teacherRepository.ExistTeacher(UserId))
-            {
-                return NotFound();
-            }
 
             return View(productRepository.GetProductDetailListForTeacher(UserId));
         }
@@ -61,11 +44,6 @@ namespace MyFirstEShop.Controllers
 
         public IActionResult AddNewProduct()
         {
-            if (!teacherRepository.ExistTeacher(UserId))
-            {
-                return NotFound();
-            }
-
             var Categories = categoryRepository.GetCategories();
 
             return View(new ProductViewModel() { Categories = Categories });

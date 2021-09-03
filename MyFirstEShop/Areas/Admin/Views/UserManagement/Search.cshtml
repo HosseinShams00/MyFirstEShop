@@ -1,0 +1,56 @@
+﻿@model IEnumerable<User>
+
+<div class="row">
+    @await Component.InvokeAsync("SearchUser")
+</div>
+
+<div class="row ">
+    @if (Model.Count() != 0)
+    {
+        <div class="col-12 table-responsive p-4">
+
+            <table>
+                <tr>
+                    <th>userid</th>
+                    <th>نام</th>
+                    <th>نام خانوادگی</th>
+                    <th>ایمیل</th>
+                    <th colspan="2">شماره تلفن</th>
+                    <th colspan="3">تاریخ ثبت نام</th>
+                    <th>Is Admin </th>
+                    <th>Is Teacher </th>
+                    <th colspan="3"></th>
+                </tr>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td colspan="2">@user.PhoneNumber</td>
+                        <td colspan="3">@user.RegisterTime</td>
+                        <td>@user.IsAdmin</td>
+                        <td>@user.IsTeacher</td>
+                        <td colspan="3">
+                            <a class="btn btn-info"  asp-area="Admin" asp-action="EditUserInfo" asp-controller="UserManagement" asp-route-userId=@user.Id>تغییر مشخصات کاربر</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    }
+</div>
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#SELECT').select2();
+        });
+    </script>
+}

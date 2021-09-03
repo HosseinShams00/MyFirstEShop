@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MyFirstEShop.Repositories;
 
-
 namespace MyFirstEShop.Component
 {
     public class ChangeUserInfoViewComponent : ViewComponent
@@ -14,8 +13,9 @@ namespace MyFirstEShop.Component
             userRepository = _userRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int userId)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            int userId = int.Parse(UserClaimsPrincipal.FindFirst("UserId").Value);
             return View("~/Views/ViewComponent/UserSetting/ChangeUserInfo.cshtml", userRepository.GetUserView(userId));
         }
 

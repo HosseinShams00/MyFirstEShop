@@ -29,7 +29,7 @@
 
                         <div class="fa-pull-left UserAccountBox" style="">
 
-                            <form asp-controller="RegisterUser" asp-action="Logout" method="post">
+                            <form asp-area="" asp-controller="RegisterUser" asp-action="Logout" method="post">
                                 <img src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
                                      style="width: 50px; height: 50px; border-radius: 50%; background-position: center; float: left;" />
 
@@ -41,9 +41,13 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" asp-controller="Setting" asp-action="Index"><i class="fas fa-cogs" style="margin-left:15px;"></i> تنظیمات</a>
+                                        @if (bool.Parse(User.FindFirst("IsAdmin").Value))
+                                        {
+                                            <a asp-area="Admin" asp-action="Index" asp-controller="Home" class="dropdown-item"> ورود به بخش مدیریت</a>
+                                        }
                                         @if (bool.Parse(User.FindFirst("IsTeacher").Value))
                                         {
-                                            <a asp-action="Index" asp-controller="TeacherPanel" class="dropdown-item"><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"></i> ورود به بخش مدرسین</a>
+                                            <a asp-area="Teacher" asp-action="Index" asp-controller="Home" class="dropdown-item"><i style="margin-left: 15px;" class="fas fa-chalkboard-teacher"></i> ورود به بخش مدرسین</a>
                                         }
                                         <button class="dropdown-item btn-danger" type="submit"><i class="fas fa-power-off" style="margin-left:15px; color:red;"></i> خروج</button>
 
@@ -86,9 +90,9 @@
 
 
     </header>
-    
+
     <div class="container">
-        
+
         <main role="main" class="pb-3">
 
             @RenderBody()

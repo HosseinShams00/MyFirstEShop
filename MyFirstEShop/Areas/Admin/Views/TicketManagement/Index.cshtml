@@ -1,0 +1,45 @@
+@model IEnumerable<TicketViewModel>
+
+@{
+    ViewData["Title"] = "تیکت ها";
+}
+
+<div class="row bg-White-Gradian table-responsive m-0" style="height: 100vh;">
+
+    <div class="mt-5 mb-5">
+        <table class="m-auto mt-5 mb-5">
+            <thead>
+                <tr>
+                    <th colspan="2">تاریخ ثبت</th>
+                    <th colspan="2">موضوع</th>
+                    <th colspan="2">مشاهده و پاسخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() != 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td colspan="2">@item.UserSendQuestionDateTime</td>
+                            <td colspan="2">@item.Subject</td>
+                            <td colspan="2">
+                                <a asp-area="Admin" asp-action="ReadTickets" asp-controller="TicketManagement"
+                            asp-route-userId=@item.UserId asp-route-MessageId=@item.MessageId class="btn btn-info"
+                            style="color:white;">مشاهده</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">
+                            تیکتی موجود نمیباشد
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+@model HomeMenuViewModel
+
+<div class="text-center">
+    <ul style="list-style:none;padding:0;">
+
+        @if (Model.AdminAccess.Count() != 0)
+        {
+            if (Model.AdminAccess.Contains(Access.CanEditUserInfo) || Model.AdminAccess.Contains(Access.CanSetAccessForUser)
+            || Model.AdminAccess.Contains(Access.CanSetAdmin) || Model.AdminAccess.Contains(Access.CanSetTeacher))
+            {
+                <a asp-area="Admin" asp-action="Search" asp-controller="UserManagement"
+            style="color: black; text-decoration: none;">
+                    <li class="p-3 li-btn SettingBtn">جستجوی افراد </li>
+                </a>
+            }
+            if (Model.AdminAccess.Contains(Access.CanEditProductDetail))
+            {
+                <a asp-area="Admin" asp-action="Search" asp-controller="ProductManagement"
+            style="color:black;text-decoration:none;">
+                    <li class="p-3 li-btn SettingBtn">جستجوی دوره</li>
+                </a>
+            }
+            if (Model.AdminAccess.Contains(Access.CanSeeTicket))
+            {
+                <a asp-area="Admin" asp-action="Index" asp-controller="TicketManagement"
+            style="color:black;text-decoration:none;">
+                    <li class="p-3 li-btn SettingBtn">تیکت ها <span class="Counter">@Model.TicketsCount</span></li>
+                </a>
+            }
+            if (Model.AdminAccess.Contains(Access.CanEditProductStatus))
+            {
+                <a asp-area="Admin" asp-action="GetSuspendProduct" asp-controller="ProductManagement"
+            style="color:black;text-decoration:none;">
+                    <li class="p-3 li-btn SettingBtn">درخواست های حذف دوره <span
+                    class="Counter">@Model.SuspendProductsCount</span></li>
+                </a>
+            }
+        }
+
+        <li class="p-3">
+            <img class="mt-4" src="https://i.pinimg.com/600x315/80/63/35/8063359effd01b990e653bb32a83485d.jpg"
+                style="height: 25vh; border-radius: 50%; background-position: center;" />
+        </li>
+    </ul>
+</div>

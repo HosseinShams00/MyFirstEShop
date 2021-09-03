@@ -4,6 +4,7 @@ using MyFirstEShop.Models.DatabaseModels;
 using MyFirstEShop.Data;
 using Microsoft.EntityFrameworkCore;
 using MyFirstEShop.Models.ViewModels;
+using MyFirstEShop.Areas.Admin.Models.ViewModel;
 
 namespace MyFirstEShop.Repositories
 {
@@ -15,6 +16,8 @@ namespace MyFirstEShop.Repositories
         Product GetProductWhitOtherInfo(int productId);
         Product GetProductWhitAllRelation(int productId);
         IEnumerable<Product> GetAllProductWithRelations();
+        IEnumerable<Product> GetSuspendProducts();
+        int GetSuspendProductsCount();
         IEnumerable<HomeViewModel> GetProducts();
         ProductDetailViewModel GetProductDetail(int productId);
         ProductViewModel GetProductViewModel(int userId, int productId);
@@ -22,6 +25,7 @@ namespace MyFirstEShop.Repositories
         void AddNewProduct(ProductViewModel productViewModel, int userId, string productCoverAddress);
         bool EditProductDetail(ProductViewModel productViewModel);
         bool ChangeProductStatus(ProductStatus productStatus, int productId);
+        IEnumerable<Product> SearchProduct(SearchProductViewModel searchProductViewModel);
     }
 
     public class ProductRepository : IProductRepository
@@ -73,6 +77,20 @@ namespace MyFirstEShop.Repositories
                  .Include(i => i.Teacher)
                  .ThenInclude(i => i.Info)
                  .ToList();
+        }
+
+        public IEnumerable<Product> GetSuspendProducts()
+        {
+            return DbContext.Products
+                .Where(i => i.Status == ProductStatus.Suspension)
+                .ToList();
+        }
+
+        public int GetSuspendProductsCount()
+        {
+            return DbContext.Products
+                .Where(i => i.Status == ProductStatus.Suspension)
+                .Count();
         }
 
         public IEnumerable<HomeViewModel> GetProducts()
@@ -133,7 +151,8 @@ namespace MyFirstEShop.Repositories
                     HaveUpdate = product.HaveUpdate,
                     DiscountPercent = product.DiscountPercent,
                     EndSupport = product.EndSupport,
-                    Categories = categoryRepository.GetCategories()
+                    Categories = categoryRepository.GetCategories(),
+                    SelectedCategoriesId = product.Categories.Select(i => i.Id).ToArray()
                 };
             }
             else
@@ -144,10 +163,11 @@ namespace MyFirstEShop.Repositories
         {
             var teacher = teacherRepository.GetTeacherWithProducts(userId);
 
-            if (teacher.Products == null || teacher.Products.Count == 0)
+            if (teacher.Products.Count == 0)
                 return new List<ProductDetailViewModel>();
 
             return teacher.Products
+                .Where(i => i.Status != ProductStatus.Inactive)
                 .Select(i => new ProductDetailViewModel()
                 {
                     ProductId = i.Id,
@@ -175,14 +195,19 @@ namespace MyFirstEShop.Repositories
         {
             var teacher = teacherRepository.GetTeacher(userId);
 
-            var category = categoryRepository.GetCategory(productViewModel.CategoryId);
+            var Cateories = new List<Category>();
+
+            foreach(var cateoryId in productViewModel.SelectedCategoriesId)
+            {
+                Cateories.Add(categoryRepository.GetCategory(cateoryId));
+            }
 
             #region Save Product In DB
 
 
             var product = new Product()
             {
-                Categories = new List<Category>() { category },
+                Categories = Cateories,
                 Name = productViewModel.Name.Trim(),
                 Description = productViewModel.Description.Trim(),
                 ProductCoverAddress = productCoverAddress,
@@ -227,7 +252,15 @@ namespace MyFirstEShop.Repositories
             if (product == null)
                 return false;
 
-            product.Status = ProductStatus.Suspension;
+            if (productStatus == ProductStatus.Suspension)
+            {
+                if (product.Status == ProductStatus.Inactive || product.Status == ProductStatus.Suspension)
+                {
+                    return false;
+                }
+            }
+
+            product.Status = productStatus;
 
             DbContext.SaveChanges();
 
@@ -238,27 +271,60 @@ namespace MyFirstEShop.Repositories
         {
             var product = GetProductWhitAllRelation(productViewModel.Id.Value);
 
-            if (product.Name != productViewModel.Name)
-                product.Name = productViewModel.Name;
+            product.Name = productViewModel.Name;
 
-            if (product.Price != productViewModel.Price)
-                product.Price = productViewModel.Price;
+            product.Price = productViewModel.Price;
 
-            if (product.ProductOtherInfo.CourceLevel != productViewModel.CourceLevel)
-                product.ProductOtherInfo.CourceLevel = productViewModel.CourceLevel;
+            product.ProductOtherInfo.CourceLevel = productViewModel.CourceLevel;
 
-            if (product.DiscountPercent != productViewModel.DiscountPercent)
-                product.DiscountPercent = productViewModel.DiscountPercent;
+            product.DiscountPercent = productViewModel.DiscountPercent;
 
-            if (product.Categories.Any(i => i.Id == productViewModel.CategoryId) == false)
-                product.Categories.Add(categoryRepository.GetCategory(productViewModel.CategoryId));
+            product.Description = productViewModel.Description;    
 
-            if (product.Name != productViewModel.Name)
-                product.Name = productViewModel.Name;
+            if (productViewModel.SelectedCategoriesId.Length != 0)
+            {
+                var Cateories = new List<Category>();
+
+                foreach (var cateoryId in productViewModel.SelectedCategoriesId)
+                {
+                    Cateories.Add(categoryRepository.GetCategory(cateoryId));
+                }
+
+                product.Categories = Cateories;
+            }
+                
 
             DbContext.SaveChanges();
 
+
             return true;
+        }
+
+        public IEnumerable<Product> SearchProduct(SearchProductViewModel searchProductViewModel)
+        {
+            var productQuery = DbContext.Products
+                .Include(i => i.Categories)
+                .Include(i => i.ProductOtherInfo)
+                .Include(i => i.Teacher)
+                .ThenInclude(i => i.Info)
+                .AsQueryable();
+
+            if (searchProductViewModel.Name != null)
+            {
+                productQuery = productQuery.Where(p => p.Name.ToLower().Contains(searchProductViewModel.Name.Trim().ToLower()));
+            }
+
+            if (searchProductViewModel.TeacherName != null)
+            {
+                productQuery = productQuery.Where(p => (p.Teacher.Info.FirstName + p.Teacher.Info.LastName).Contains(searchProductViewModel.TeacherName.Trim().ToLower()));
+            }
+
+            if (searchProductViewModel.SelectedCategoryId != 0)
+            {
+                productQuery = productQuery.Where(p => p.Categories.Any(i => i.Id == searchProductViewModel.SelectedCategoryId));
+            }
+
+            return productQuery.ToList();
         }
     }
 }
